@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MD Piash Islam — SQA Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header id="header">
+    <div class="nav-wrap">
+      <a href="#hero" class="logo">SQA <span>Portfolio</span></a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="resume.pdf" class="nav-resume" download>↓ Resume</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-wrap">
+
+      <div class="hero-photo-area">
+        <div class="photo-ring-outer">
+          <div class="photo-ring-inner">
+            <img
+              src="profile.jpg"
+              alt="MD Piash Islam"
+              id="profileImg"
+              onload="document.getElementById('initials').style.display='none'; this.style.display='block';"
+              onerror="this.style.display='none'; document.getElementById('initials').style.display='flex';"
+            />
+            <div class="photo-initials" id="initials" style="display:none;">PI</div>
+          </div>
+        </div>
+        <div class="availability-badge">
+          <span class="green-dot"></span> Available for Work
+        </div>
+      </div>
+
+      <div class="hero-text">
+        <p class="hello-text">Hello, I'm</p>
+        <h1><span class="name-blue">Md Piash Islam</span></h1>
+        <p class="hero-subtitle">Entry-Level Software Quality Assurance Engineer</p>
+        <p class="hero-desc">
+          Passionate about ensuring software quality through meticulous testing, detailed documentation, and continuous learning. Ready to contribute to your team's success.
+        </p>
+        <div class="hero-btns">
+          <a href="#about" class="btn-primary">Learn More About Me</a>
+          <a href="#contact" class="btn-secondary">Get In Touch</a>
+        </div>
+
+        <div class="social-icons">
+          <a href="https://www.linkedin.com/in/md-piash-islam-01a251255/" target="_blank" class="social-icon si-linkedin" title="LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+          <a href="https://github.com/piash25252" target="_blank" class="social-icon si-github" title="GitHub">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a href="mailto:piashislam775@gmail.com" class="social-icon si-email" title="Email">
+            <i class="fa-solid fa-envelope"></i>
+          </a>
+        </div>
+
+        <div class="scroll-down">
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="wrap">
+      <div class="section-header">
+        <p class="section-tag">Get To Know Me</p>
+        <h2 class="section-h2">About Me</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-photo-side">
+          <div class="about-photo-frame">
+            <img
+              src="profile.jpg"
+              alt="MD Piash Islam"
+              onload="this.style.display='block'; document.getElementById('aboutInitials').style.display='none';"
+              onerror="this.style.display='none'; document.getElementById('aboutInitials').style.display='flex';"
+            />
+            <div class="about-photo-placeholder" id="aboutInitials" style="display:none;">PI</div>
+          </div>
+          <div class="about-stats">
+            <div class="astat"><span class="astat-n">5+</span><span class="astat-l">Projects</span></div>
+            <div class="astat"><span class="astat-n">3+</span><span class="astat-l">Certifications</span></div>
+            <div class="astat"><span class="astat-n">100%</span><span class="astat-l">Dedication</span></div>
+          </div>
+        </div>
+        <div class="about-content">
+          <h3>I'm MD Piash Islam, an Entry-Level SQA Engineer</h3>
+          <p>Based in Dhaka, Bangladesh, I'm a fresh graduate passionate about software quality assurance. I believe that quality is not just a phase in development — it's a mindset that should be embedded throughout the entire process.</p>
+          <p>I have hands-on experience with manual testing, API testing using Postman, and test automation with Selenium. I'm continuously learning and improving my skills to become a well-rounded QA professional.</p>
+          <div class="about-details">
+            <div class="detail-item"><span class="detail-key">📍 Location</span><span class="detail-val">Dhaka, Bangladesh</span></div>
+            <div class="detail-item"><span class="detail-key">🎓 Degree</span><span class="detail-val">BSc in Computer Science & Engineering</span></div>
+            <div class="detail-item"><span class="detail-key">💼 Status</span><span class="detail-val status-open">Open to Opportunities</span></div>
+            <div class="detail-item"><span class="detail-key">📧 Email</span><span class="detail-val">piashislam775@gmail.com</span></div>
+          </div>
+          <a href="resume.pdf" class="btn-primary" download>Download Resume</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section bg-light">
+    <div class="wrap">
+      <div class="section-header">
+        <p class="section-tag">What I Know</p>
+        <h2 class="section-h2">My Skills</h2>
+      </div>
+      <div class="skills-cats">
+        <div class="skill-cat-card">
+          <div class="scc-icon">🔍</div>
+          <h3>Manual Testing</h3>
+          <div class="skill-pills">
+            <span>Test Case Design</span><span>Bug Reporting</span><span>Regression Testing</span>
+            <span>Smoke Testing</span><span>Exploratory Testing</span><span>UAT</span>
+          </div>
+        </div>
+        <div class="skill-cat-card">
+          <div class="scc-icon">⚙️</div>
+          <h3>Test Automation</h3>
+          <div class="skill-pills">
+            <span>Selenium WebDriver</span><span>Cypress</span><span>TestNG</span>
+            <span>JUnit</span><span>Python</span><span>Java (Basics)</span>
+          </div>
+        </div>
+        <div class="skill-cat-card">
+          <div class="scc-icon">🌐</div>
+          <h3>API Testing</h3>
+          <div class="skill-pills">
+            <span>Postman</span><span>REST Assured</span><span>Newman</span>
+            <span>Swagger</span><span>API Documentation</span>
+          </div>
+        </div>
+        <div class="skill-cat-card">
+          <div class="scc-icon">🛠️</div>
+          <h3>Tools & Process</h3>
+          <div class="skill-pills">
+            <span>JIRA</span><span>TestRail</span><span>GitHub</span>
+            <span>Agile / Scrum</span><span>SDLC / STLC</span><span>CI/CD Basics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+    <div class="wrap">
+      <div class="section-header">
+        <p class="section-tag">My Work</p>
+        <h2 class="section-h2">Projects</h2>
+      </div>
+      <div class="projects-grid">
+        <div class="proj-card featured">
+          <div class="proj-top">
+            <span class="proj-badge">Featured</span>
+            <div class="proj-links"><a href="#">GitHub →</a></div>
+          </div>
+          <h3>E-Commerce Platform QA</h3>
+          <p>Comprehensive test suite covering 150+ test cases for user flows, checkout, and payment gateway. Built automated regression suite using Cypress with CI/CD integration.</p>
+          <div class="proj-tags">
+            <span>Cypress</span><span>Manual QA</span><span>JIRA</span><span>Postman</span><span>GitHub Actions</span>
+          </div>
+          <div class="proj-results">
+            <div class="pr-item pass">✓ 148 Tests Passed</div>
+            <div class="pr-item fail">✗ 2 Bugs Found & Reported</div>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-top"><div class="proj-links"><a href="#">GitHub →</a></div></div>
+          <h3>REST API Test Suite</h3>
+          <p>Built a complete Postman collection with 80+ API test cases for a social media backend. Integrated with Newman for CI/CD automation.</p>
+          <div class="proj-tags"><span>Postman</span><span>Newman</span><span>CI/CD</span></div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-top"><div class="proj-links"><a href="#">GitHub →</a></div></div>
+          <h3>Banking App Load Testing</h3>
+          <p>Designed JMeter load tests for a banking app. Identified bottlenecks under 1000 concurrent users and documented benchmarks.</p>
+          <div class="proj-tags"><span>JMeter</span><span>Performance</span><span>Reporting</span></div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-top"><div class="proj-links"><a href="#">GitHub →</a></div></div>
+          <h3>Mobile App QA — Android</h3>
+          <p>Manual and exploratory testing for a fitness tracking app. 200+ test cases, tracked 45 bugs across 3 release cycles.</p>
+          <div class="proj-tags"><span>Mobile Testing</span><span>TestRail</span><span>Android</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE / TIMELINE -->
+  <section id="experience" class="section bg-light">
+    <div class="wrap">
+      <div class="section-header">
+        <p class="section-tag">My Journey</p>
+        <h2 class="section-h2">Education & Experience</h2>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-left"><span class="tl-date">2024 — Present</span></div>
+          <div class="tl-dot-wrap">
+            <div class="tl-dot active"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-right">
+            <div class="tl-card">
+              <span class="tl-type">Experience</span>
+              <h3>Freelance QA Tester</h3>
+              <p class="tl-org">Self-Employed · Dhaka</p>
+              <p class="tl-desc">Building hands-on QA experience through personal projects, open source contributions, and freelance testing work. Focus on automation and API testing.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><span class="tl-date">2022 — 2026</span></div>
+          <div class="tl-dot-wrap">
+            <div class="tl-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-right">
+            <div class="tl-card">
+              <span class="tl-type">Education</span>
+              <h3>BSc in Computer Science & Engineering</h3>
+              <p class="tl-org">Dhaka International University · Dhaka</p>
+              <p class="tl-desc">Studied software engineering, databases, algorithms, and software testing fundamentals. Completed final year project on test automation.</p>
+            </div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-left"><span class="tl-date">2023</span></div>
+          <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+          <div class="tl-right">
+            <div class="tl-card">
+              <span class="tl-type">Certification</span>
+              <h3>Software Testing Certification</h3>
+              <p class="tl-org">Ostad / Udemy / Coursera</p>
+              <p class="tl-desc">Completed comprehensive course on STLC, test case design, Selenium WebDriver, and Agile methodology for QA teams.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="wrap">
+      <div class="section-header center">
+        <p class="section-tag">Let's Talk</p>
+        <h2 class="section-h2">Get In Touch</h2>
+        <p class="section-desc">I'm actively looking for SQA Engineer opportunities. If you have a role or want to collaborate, feel free to reach out!</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <a href="mailto:piashislam775@gmail.com" class="ci-card">
+            <span class="ci-icon ci-email"><i class="fa-solid fa-envelope"></i></span>
+            <div>
+              <p class="ci-label">Email</p>
+              <span class="ci-val">piashislam775@gmail.com</span>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/md-piash-islam-01a251255/" target="_blank" class="ci-card">
+            <span class="ci-icon ci-linkedin"><i class="fa-brands fa-linkedin-in"></i></span>
+            <div>
+              <p class="ci-label">LinkedIn</p>
+              <span class="ci-val">md-piash-islam</span>
+            </div>
+          </a>
+          <a href="https://github.com/piash25252" target="_blank" class="ci-card">
+            <span class="ci-icon ci-github"><i class="fa-brands fa-github"></i></span>
+            <div>
+              <p class="ci-label">GitHub</p>
+              <span class="ci-val">piash25252</span>
+            </div>
+          </a>
+          <div class="ci-card">
+            <span class="ci-icon ci-location"><i class="fa-solid fa-location-dot"></i></span>
+            <div>
+              <p class="ci-label">Location</p>
+              <span class="ci-val">Dhaka, Bangladesh</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ✅ FORMSPREE CONNECTED FORM -->
+        <form
+          class="contact-form"
+          action="https://formspree.io/f/xreaorbq"
+          method="POST"
+          id="contactForm"
+          onsubmit="handleSubmit(event)"
+        >
+          <div class="form-row">
+            <div class="fg">
+              <label>Your Name</label>
+              <input type="text" name="name" placeholder="John Doe" required />
+            </div>
+            <div class="fg">
+              <label>Your Email</label>
+              <input type="email" name="email" placeholder="john@company.com" required />
+            </div>
+          </div>
+          <div class="fg">
+            <label>Subject</label>
+            <input type="text" name="subject" placeholder="Job Opportunity / Collaboration" />
+          </div>
+          <div class="fg">
+            <label>Message</label>
+            <textarea name="message" rows="5" placeholder="Tell me about the role or project..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary full">Send Message →</button>
+
+          <!-- Success / Error message -->
+          <div id="form-status" style="display:none; margin-top:12px; padding:12px 16px; border-radius:8px; font-size:0.95rem; text-align:center;"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <p class="footer-logo">MD Piash Islam</p>
+      <p class="footer-role">SQA Engineer · Dhaka, Bangladesh</p>
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/md-piash-islam-01a251255/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://github.com/piash25252" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="mailto:piashislam775@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+      </div>
+      <p class="footer-copy">© 2025 · Designed with care · Ready to test your product</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <!-- ✅ FORMSPREE SUBMIT HANDLER -->
+  <script>
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const form = document.getElementById('contactForm');
+      const status = document.getElementById('form-status');
+      const btn = form.querySelector('button[type="submit"]');
+
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      const data = new FormData(form);
+
+      try {
+        const response = await fetch('https://formspree.io/f/xreaorbq', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          status.style.display = 'block';
+          status.style.background = '#d1fae5';
+          status.style.color = '#065f46';
+          status.textContent = '✅ Message sent successfully! I will get back to you soon.';
+          form.reset();
+        } else {
+          throw new Error('Failed');
+        }
+      } catch (err) {
+        status.style.display = 'block';
+        status.style.background = '#fee2e2';
+        status.style.color = '#991b1b';
+        status.textContent = '❌ Something went wrong. Please try again or email me directly.';
+      }
+
+      btn.disabled = false;
+      btn.textContent = 'Send Message →';
+    }
+  </script>
+
+</body>
+</html>
