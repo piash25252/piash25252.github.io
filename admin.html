@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Panel — MD Piash Islam Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     /* ============================================================
        ADMIN — uses the same design tokens as the portfolio
     ============================================================ */
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     :root {
       --blue: #2563eb;
@@ -29,7 +38,9 @@
       --radius: 14px;
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: 'Sora', sans-serif;
@@ -42,7 +53,10 @@
     /* ---------- LOGIN OVERLAY ---------- */
     .login-overlay {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: var(--light);
       z-index: 10000;
       display: flex;
@@ -50,30 +64,35 @@
       align-items: center;
       justify-content: center;
     }
+
     .login-box {
       background: var(--white);
       padding: 2.5rem;
       border-radius: var(--radius);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
       border: 1px solid var(--border);
       text-align: center;
       max-width: 400px;
       width: 90%;
     }
+
     .login-box .icon {
       font-size: 2.5rem;
       color: var(--blue);
       margin-bottom: 1rem;
     }
+
     .login-box h2 {
       margin-bottom: 0.5rem;
       font-size: 1.4rem;
     }
+
     .login-box p {
       color: var(--muted);
       font-size: 0.9rem;
       margin-bottom: 1.5rem;
     }
+
     .login-box input {
       width: 100%;
       padding: 0.8rem 1rem;
@@ -83,22 +102,27 @@
       font-size: 1rem;
       font-family: inherit;
     }
+
     .login-box input:focus {
       outline: none;
       border-color: var(--blue);
       box-shadow: 0 0 0 3px var(--blue-mid);
     }
-    .login-box button { width: 100%; }
+
+    .login-box button {
+      width: 100%;
+    }
 
     /* ---------- Top header ---------- */
     .admin-header {
       position: sticky;
       top: 0;
       z-index: 999;
-      background: rgba(255,255,255,0.94);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
+
     .admin-header-inner {
       max-width: 1140px;
       margin: 0 auto;
@@ -109,6 +133,7 @@
       gap: 1rem;
       flex-wrap: wrap;
     }
+
     .admin-brand {
       font-size: 1.1rem;
       font-weight: 700;
@@ -118,14 +143,21 @@
       align-items: center;
       gap: 0.5rem;
     }
-    .admin-brand span { color: var(--fg); }
+
+    .admin-brand span {
+      color: var(--fg);
+    }
+
     .admin-brand i {
       font-size: 1.05rem;
       background: var(--blue);
       color: white;
-      width: 32px; height: 32px;
+      width: 32px;
+      height: 32px;
       border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .header-actions {
@@ -149,27 +181,70 @@
       text-decoration: none;
       transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
     }
-    .btn:hover { transform: translateY(-1px); }
-    .btn:active { transform: translateY(0); }
 
-    .btn-primary { background: var(--blue); color: white; }
-    .btn-primary:hover { background: var(--blue-dark); }
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+    }
 
     .btn-outline {
       background: var(--white);
       color: var(--fg);
       border: 1.5px solid var(--border);
     }
-    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
 
-    .btn-danger { background: var(--red-bg); color: var(--red); border: 1px solid #fecaca; }
-    .btn-danger:hover { background: var(--red); color: white; }
+    .btn-outline:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
 
-    .btn-success { background: var(--green-bg); color: var(--green); border: 1px solid #bbf7d0; }
-    .btn-success:hover { background: var(--green); color: white; }
+    .btn-danger {
+      background: var(--red-bg);
+      color: var(--red);
+      border: 1px solid #fecaca;
+    }
 
-    .btn-sm { padding: 0.45rem 0.9rem; font-size: 0.78rem; border-radius: 8px; }
-    .btn-icon { width: 36px; height: 36px; padding: 0; justify-content: center; border-radius: 10px; }
+    .btn-danger:hover {
+      background: var(--red);
+      color: white;
+    }
+
+    .btn-success {
+      background: var(--green-bg);
+      color: var(--green);
+      border: 1px solid #bbf7d0;
+    }
+
+    .btn-success:hover {
+      background: var(--green);
+      color: white;
+    }
+
+    .btn-sm {
+      padding: 0.45rem 0.9rem;
+      font-size: 0.78rem;
+      border-radius: 8px;
+    }
+
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      justify-content: center;
+      border-radius: 10px;
+    }
 
     /* ---------- Layout ---------- */
     .admin-main {
@@ -185,6 +260,7 @@
       gap: 1rem;
       margin-bottom: 2rem;
     }
+
     .stat-card {
       background: var(--white);
       border: 1px solid var(--border);
@@ -195,20 +271,57 @@
       gap: 1rem;
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(37,99,235,0.08); }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
+    }
+
     .stat-icon {
-      width: 46px; height: 46px;
+      width: 46px;
+      height: 46px;
       border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 1.15rem;
       flex-shrink: 0;
     }
-    .stat-icon.blue  { background: var(--blue-light); color: var(--blue); }
-    .stat-icon.green { background: var(--green-bg); color: var(--green); }
-    .stat-icon.red   { background: var(--red-bg); color: var(--red); }
-    .stat-icon.muted { background: #f3f4f6; color: var(--muted); }
-    .stat-num { font-size: 1.5rem; font-weight: 700; color: var(--fg); line-height: 1; }
-    .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
+
+    .stat-icon.blue {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+
+    .stat-icon.green {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .stat-icon.red {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    .stat-icon.muted {
+      background: #f3f4f6;
+      color: var(--muted);
+    }
+
+    .stat-num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+    }
 
     /* ---------- Section card ---------- */
     .admin-card {
@@ -218,6 +331,7 @@
       padding: 1.75rem;
       margin-bottom: 1.5rem;
     }
+
     .card-header {
       display: flex;
       align-items: center;
@@ -226,6 +340,7 @@
       flex-wrap: wrap;
       gap: 0.75rem;
     }
+
     .card-title {
       font-size: 1.15rem;
       font-weight: 700;
@@ -234,15 +349,23 @@
       align-items: center;
       gap: 0.5rem;
     }
-    .card-title i { color: var(--blue); font-size: 1rem; }
+
+    .card-title i {
+      color: var(--blue);
+      font-size: 1rem;
+    }
 
     /* ---------- Table ---------- */
-    .table-wrap { overflow-x: auto; }
+    .table-wrap {
+      overflow-x: auto;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.88rem;
     }
+
     th {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
@@ -255,15 +378,26 @@
       border-bottom: 2px solid var(--border);
       white-space: nowrap;
     }
+
     td {
       padding: 0.85rem 1rem;
       border-bottom: 1px solid var(--border);
       vertical-align: middle;
     }
-    tr:last-child td { border-bottom: none; }
-    tr:hover td { background: var(--blue-light); }
 
-    .proj-title-cell { font-weight: 600; color: var(--fg); }
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: var(--blue-light);
+    }
+
+    .proj-title-cell {
+      font-weight: 600;
+      color: var(--fg);
+    }
+
     .proj-featured-badge {
       font-size: 0.66rem;
       font-weight: 700;
@@ -300,13 +434,16 @@
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: rgba(17,24,39,0.5);
+      background: rgba(17, 24, 39, 0.5);
       backdrop-filter: blur(6px);
       align-items: center;
       justify-content: center;
       padding: 1.5rem;
     }
-    .modal-overlay.active { display: flex; }
+
+    .modal-overlay.active {
+      display: flex;
+    }
 
     .modal {
       background: var(--white);
@@ -315,12 +452,20 @@
       max-width: 640px;
       max-height: 90vh;
       overflow-y: auto;
-      box-shadow: 0 24px 48px rgba(0,0,0,0.18);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
       animation: modalIn 0.25s ease;
     }
+
     @keyframes modalIn {
-      from { opacity: 0; transform: translateY(16px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .modal-header {
@@ -330,28 +475,44 @@
       padding: 1.25rem 1.5rem;
       border-bottom: 1px solid var(--border);
     }
+
     .modal-header h3 {
       font-size: 1.1rem;
       font-weight: 700;
       color: var(--fg);
-      display: flex; align-items: center; gap: 0.45rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
     }
-    .modal-header h3 i { color: var(--blue); }
+
+    .modal-header h3 i {
+      color: var(--blue);
+    }
 
     .modal-close {
-      width: 34px; height: 34px;
+      width: 34px;
+      height: 34px;
       border-radius: 8px;
       border: 1px solid var(--border);
       background: var(--light);
       color: var(--muted);
       cursor: pointer;
       font-size: 1rem;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: background 0.15s, color 0.15s;
     }
-    .modal-close:hover { background: var(--red-bg); color: var(--red); }
 
-    .modal-body { padding: 1.5rem; }
+    .modal-close:hover {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+    }
+
     .modal-footer {
       display: flex;
       justify-content: flex-end;
@@ -361,7 +522,10 @@
     }
 
     /* ---------- Form inside modal ---------- */
-    .form-group { margin-bottom: 1.15rem; }
+    .form-group {
+      margin-bottom: 1.15rem;
+    }
+
     .form-group label {
       display: block;
       font-size: 0.82rem;
@@ -369,6 +533,7 @@
       color: var(--fg);
       margin-bottom: 0.4rem;
     }
+
     .form-group input,
     .form-group textarea,
     .form-group select {
@@ -384,9 +549,13 @@
       transition: border-color 0.2s;
       resize: none;
     }
+
     .form-group input:focus,
     .form-group textarea:focus,
-    .form-group select:focus { border-color: var(--blue); }
+    .form-group select:focus {
+      border-color: var(--blue);
+    }
+
     .form-hint {
       font-size: 0.72rem;
       color: var(--muted);
@@ -404,12 +573,20 @@
       align-items: center;
       gap: 0.75rem;
     }
+
     .toggle {
       position: relative;
-      width: 44px; height: 24px;
+      width: 44px;
+      height: 24px;
       cursor: pointer;
     }
-    .toggle input { opacity: 0; width: 0; height: 0; }
+
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
     .toggle-slider {
       position: absolute;
       inset: 0;
@@ -417,29 +594,52 @@
       border-radius: 99px;
       transition: background 0.2s;
     }
+
     .toggle-slider::before {
       content: '';
       position: absolute;
-      width: 18px; height: 18px;
-      left: 3px; top: 3px;
+      width: 18px;
+      height: 18px;
+      left: 3px;
+      top: 3px;
       background: white;
       border-radius: 50%;
       transition: transform 0.2s;
     }
-    .toggle input:checked + .toggle-slider { background: var(--blue); }
-    .toggle input:checked + .toggle-slider::before { transform: translateX(20px); }
-    .toggle-label { font-size: 0.88rem; font-weight: 500; }
+
+    .toggle input:checked+.toggle-slider {
+      background: var(--blue);
+    }
+
+    .toggle input:checked+.toggle-slider::before {
+      transform: translateX(20px);
+    }
+
+    .toggle-label {
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
 
     /* ---------- Results sub-form ---------- */
-    .results-editor { margin-top: 0.75rem; }
+    .results-editor {
+      margin-top: 0.75rem;
+    }
+
     .result-row {
       display: flex;
       gap: 0.5rem;
       align-items: center;
       margin-bottom: 0.5rem;
     }
-    .result-row input { flex: 1; }
-    .result-row select { width: 120px; flex-shrink: 0; }
+
+    .result-row input {
+      flex: 1;
+    }
+
+    .result-row select {
+      width: 120px;
+      flex-shrink: 0;
+    }
 
     /* ---------- Toast ---------- */
     .toast {
@@ -455,16 +655,32 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
       transform: translateY(20px);
       opacity: 0;
       transition: all 0.3s ease;
       pointer-events: none;
     }
-    .toast.show { transform: translateY(0); opacity: 1; }
-    .toast.success { background: var(--green); color: white; }
-    .toast.error { background: var(--red); color: white; }
-    .toast.info { background: var(--blue); color: white; }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      background: var(--green);
+      color: white;
+    }
+
+    .toast.error {
+      background: var(--red);
+      color: white;
+    }
+
+    .toast.info {
+      background: var(--blue);
+      color: white;
+    }
 
     /* ---------- Empty state ---------- */
     .empty-state {
@@ -472,11 +688,13 @@
       padding: 3rem 1rem;
       color: var(--muted);
     }
+
     .empty-state i {
       font-size: 2.5rem;
       margin-bottom: 0.75rem;
       color: var(--border);
     }
+
     .empty-state p {
       font-size: 0.95rem;
       margin-bottom: 1rem;
@@ -488,24 +706,53 @@
       color: var(--muted);
       line-height: 1.7;
     }
-    .delete-text strong { color: var(--fg); }
+
+    .delete-text strong {
+      color: var(--fg);
+    }
 
     /* ---------- Responsive ---------- */
     @media (max-width: 768px) {
-      .admin-header-inner { padding: 0.85rem 1.25rem; }
-      .admin-main { padding: 1.25rem; }
-      .stats-bar { grid-template-columns: 1fr 1fr; }
-      .form-row { grid-template-columns: 1fr; }
-      th:nth-child(3), td:nth-child(3),
-      th:nth-child(4), td:nth-child(4) { display: none; }
+      .admin-header-inner {
+        padding: 0.85rem 1.25rem;
+      }
+
+      .admin-main {
+        padding: 1.25rem;
+      }
+
+      .stats-bar {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      th:nth-child(3),
+      td:nth-child(3),
+      th:nth-child(4),
+      td:nth-child(4) {
+        display: none;
+      }
     }
+
     @media (max-width: 480px) {
-      .stats-bar { grid-template-columns: 1fr; }
-      .admin-brand span { display: none; }
-      .modal { max-width: 100%; }
+      .stats-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-brand span {
+        display: none;
+      }
+
+      .modal {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- LOGIN OVERLAY -->
@@ -514,9 +761,11 @@
       <div class="icon"><i class="fa-solid fa-lock"></i></div>
       <h2>Admin Login</h2>
       <p>Enter the master password to access the project dashboard.</p>
-      <input type="password" id="adminPassword" placeholder="Enter password" onkeypress="if(event.key === 'Enter') checkLogin()" />
+      <input type="password" id="adminPassword" placeholder="Enter password"
+        onkeypress="if(event.key === 'Enter') checkLogin()" />
       <button class="btn btn-primary" onclick="checkLogin()">Login to Dashboard</button>
-      <p id="loginError" style="color:var(--red); font-size:0.85rem; margin-top:0.8rem; display:none;">Incorrect password!</p>
+      <p id="loginError" style="color:var(--red); font-size:0.85rem; margin-top:0.8rem; display:none;">Incorrect
+        password!</p>
     </div>
   </div>
 
@@ -778,7 +1027,7 @@
           .from('projects')
           .select('*')
           .order('id', { ascending: true });
-        
+
         if (error) throw error;
         allProjects = data || [];
         return allProjects;
@@ -966,12 +1215,12 @@
 
       const btn = document.querySelector('#projectForm + .modal-footer .btn-primary');
       const originalLabel = document.getElementById('saveLabel').textContent;
-      
+
       try {
         document.getElementById('saveLabel').textContent = 'Saving...';
-        
+
         const payload = { title, description, github_url, live_url, tech_stack };
-        
+
         let result;
         if (id) {
           // Update
@@ -1014,7 +1263,7 @@
       try {
         const { error } = await sb.from('projects').delete().eq('id', deleteTargetId);
         if (error) throw error;
-        
+
         closeDeleteModal();
         renderAll();
         showToast('Project deleted.', 'error');
@@ -1033,10 +1282,10 @@
     // ---------- RESET ----------
     async function resetDefaults() {
       if (!confirm('This will DELETE all current projects in Supabase and replace them with defaults. Are you sure?')) return;
-      
+
       try {
         showToast('Resetting database...', 'info');
-        
+
         // 1. Delete all
         const { error: delError } = await sb.from('projects').delete().neq('id', -1);
         if (delError) throw delError;
@@ -1067,10 +1316,10 @@
 
 
     // ---------- CLOSE MODALS ON OVERLAY CLICK ----------
-    document.getElementById('modal').addEventListener('click', function(e) {
+    document.getElementById('modal').addEventListener('click', function (e) {
       if (e.target === this) closeModal();
     });
-    document.getElementById('deleteModal').addEventListener('click', function(e) {
+    document.getElementById('deleteModal').addEventListener('click', function (e) {
       if (e.target === this) closeDeleteModal();
     });
 
@@ -1093,7 +1342,7 @@
     }
 
     // ---------- LOGIN AUTH ----------
-    const MASTER_PASSWORD = "admin"; // Using simple password for now
+    const MASTER_PASSWORD = "Bimdur25252?%"; // Using simple password for now
 
     function checkLogin() {
       const pwd = document.getElementById('adminPassword').value;
@@ -1116,4 +1365,5 @@
   </script>
 
 </body>
+
 </html>
