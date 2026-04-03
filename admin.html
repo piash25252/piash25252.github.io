@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — MD Piash Islam Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ============================================================
+       ADMIN — uses the same design tokens as the portfolio
+    ============================================================ */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --blue-light: #eff6ff;
+      --blue-mid: #dbeafe;
+      --fg: #111827;
+      --muted: #6b7280;
+      --light: #f9fafb;
+      --border: #e5e7eb;
+      --white: #ffffff;
+      --green: #16a34a;
+      --green-bg: #dcfce7;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --radius: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Sora', sans-serif;
+      background: var(--light);
+      color: var(--fg);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ---------- Top header ---------- */
+    .admin-header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .admin-header-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .admin-brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .admin-brand span { color: var(--fg); }
+    .admin-brand i {
+      font-size: 1.05rem;
+      background: var(--blue);
+      color: white;
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* ---------- Buttons (shared) ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: 'Sora', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 0.65rem 1.4rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary { background: var(--blue); color: white; }
+    .btn-primary:hover { background: var(--blue-dark); }
+
+    .btn-outline {
+      background: var(--white);
+      color: var(--fg);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
+
+    .btn-danger { background: var(--red-bg); color: var(--red); border: 1px solid #fecaca; }
+    .btn-danger:hover { background: var(--red); color: white; }
+
+    .btn-success { background: var(--green-bg); color: var(--green); border: 1px solid #bbf7d0; }
+    .btn-success:hover { background: var(--green); color: white; }
+
+    .btn-sm { padding: 0.45rem 0.9rem; font-size: 0.78rem; border-radius: 8px; }
+    .btn-icon { width: 36px; height: 36px; padding: 0; justify-content: center; border-radius: 10px; }
+
+    /* ---------- Layout ---------- */
+    .admin-main {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* ---------- Stats bar ---------- */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(37,99,235,0.08); }
+    .stat-icon {
+      width: 46px; height: 46px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+    .stat-icon.blue  { background: var(--blue-light); color: var(--blue); }
+    .stat-icon.green { background: var(--green-bg); color: var(--green); }
+    .stat-icon.red   { background: var(--red-bg); color: var(--red); }
+    .stat-icon.muted { background: #f3f4f6; color: var(--muted); }
+    .stat-num { font-size: 1.5rem; font-weight: 700; color: var(--fg); line-height: 1; }
+    .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
+
+    /* ---------- Section card ---------- */
+    .admin-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--fg);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card-title i { color: var(--blue); font-size: 1rem; }
+
+    /* ---------- Table ---------- */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-align: left;
+      padding: 0.85rem 1rem;
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+    td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--blue-light); }
+
+    .proj-title-cell { font-weight: 600; color: var(--fg); }
+    .proj-featured-badge {
+      font-size: 0.66rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      background: var(--blue);
+      color: white;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-left: 0.5rem;
+    }
+
+    .tag-pill {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.2rem 0.55rem;
+      background: var(--blue-light);
+      color: var(--blue);
+      border-radius: 99px;
+      border: 1px solid var(--blue-mid);
+      margin: 0.15rem;
+    }
+
+    .action-group {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: nowrap;
+    }
+
+    /* ---------- Modal overlay ---------- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(17,24,39,0.5);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 640px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.18);
+      animation: modalIn 0.25s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-header h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--fg);
+      display: flex; align-items: center; gap: 0.45rem;
+    }
+    .modal-header h3 i { color: var(--blue); }
+
+    .modal-close {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--light);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, color 0.15s;
+    }
+    .modal-close:hover { background: var(--red-bg); color: var(--red); }
+
+    .modal-body { padding: 1.5rem; }
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ---------- Form inside modal ---------- */
+    .form-group { margin-bottom: 1.15rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 0.4rem;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-family: 'Sora', sans-serif;
+      color: var(--fg);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--blue); }
+    .form-hint {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .toggle {
+      position: relative;
+      width: 44px; height: 24px;
+      cursor: pointer;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: var(--border);
+      border-radius: 99px;
+      transition: background 0.2s;
+    }
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      left: 3px; top: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+    .toggle input:checked + .toggle-slider { background: var(--blue); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(20px); }
+    .toggle-label { font-size: 0.88rem; font-weight: 500; }
+
+    /* ---------- Results sub-form ---------- */
+    .results-editor { margin-top: 0.75rem; }
+    .result-row {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .result-row input { flex: 1; }
+    .result-row select { width: 120px; flex-shrink: 0; }
+
+    /* ---------- Toast ---------- */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 99999;
+      padding: 0.85rem 1.5rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      font-family: 'Sora', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { background: var(--green); color: white; }
+    .toast.error { background: var(--red); color: white; }
+    .toast.info { background: var(--blue); color: white; }
+
+    /* ---------- Empty state ---------- */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+    }
+    .empty-state i {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--border);
+    }
+    .empty-state p {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ---------- Delete modal ---------- */
+    .delete-text {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .delete-text strong { color: var(--fg); }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      .admin-header-inner { padding: 0.85rem 1.25rem; }
+      .admin-main { padding: 1.25rem; }
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      th:nth-child(3), td:nth-child(3),
+      th:nth-child(4), td:nth-child(4) { display: none; }
+    }
+    @media (max-width: 480px) {
+      .stats-bar { grid-template-columns: 1fr; }
+      .admin-brand span { display: none; }
+      .modal { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="admin-header">
+    <div class="admin-header-inner">
+      <a href="index.html" class="admin-brand">
+        <i class="fa-solid fa-shield-halved"></i>
+        Admin <span>Panel</span>
+      </a>
+      <div class="header-actions">
+        <a href="index.html" class="btn btn-outline btn-sm">
+          <i class="fa-solid fa-arrow-left"></i> Back to Site
+        </a>
+        <button class="btn btn-primary btn-sm" onclick="openModal()">
+          <i class="fa-solid fa-plus"></i> Add Project
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="admin-main">
+
+    <!-- Stats -->
+    <div class="stats-bar" id="statsBar">
+      <!-- Filled by JS -->
+    </div>
+
+    <!-- Projects table card -->
+    <div class="admin-card">
+      <div class="card-header">
+        <div class="card-title"><i class="fa-solid fa-folder-open"></i> All Projects</div>
+        <button class="btn btn-outline btn-sm" onclick="resetDefaults()">
+          <i class="fa-solid fa-rotate-left"></i> Reset Defaults
+        </button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Project</th>
+              <th>Tags</th>
+              <th>Links</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="projectsBody">
+            <!-- Filled by JS -->
+          </tbody>
+        </table>
+        <div class="empty-state" id="emptyState" style="display:none;">
+          <i class="fa-solid fa-box-open"></i>
+          <p>No projects yet. Click "Add Project" to get started.</p>
+          <button class="btn btn-primary btn-sm" onclick="openModal()">
+            <i class="fa-solid fa-plus"></i> Add First Project
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===================== ADD / EDIT MODAL ===================== -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-pen-ruler"></i> <span id="modalTitle">Add Project</span></h3>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="projectForm" onsubmit="saveProject(event)">
+          <input type="hidden" id="editId" />
+
+          <div class="form-group">
+            <label>Project Title *</label>
+            <input type="text" id="fTitle" placeholder="E-Commerce Platform QA" required />
+          </div>
+
+          <div class="form-group">
+            <label>Description *</label>
+            <textarea id="fDesc" rows="3" placeholder="Comprehensive test suite covering..." required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>GitHub URL</label>
+              <input type="url" id="fGithub" placeholder="https://github.com/..." />
+            </div>
+            <div class="form-group">
+              <label>Live Demo URL</label>
+              <input type="url" id="fDemo" placeholder="https://..." />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Tags</label>
+            <input type="text" id="fTags" placeholder="Cypress, Postman, JIRA" />
+            <p class="form-hint">Separate multiple tags with commas</p>
+          </div>
+
+          <div class="form-group">
+            <div class="toggle-row">
+              <label class="toggle">
+                <input type="checkbox" id="fFeatured" />
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="toggle-label">Featured Project</span>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="form-group">
+            <label>Test Results (optional)</label>
+            <div class="results-editor" id="resultsEditor">
+              <!-- Dynamic result rows -->
+            </div>
+            <button type="button" class="btn btn-outline btn-sm" onclick="addResultRow()" style="margin-top:0.5rem;">
+              <i class="fa-solid fa-plus"></i> Add Result
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="document.getElementById('projectForm').requestSubmit()">
+          <i class="fa-solid fa-check"></i> <span id="saveLabel">Save Project</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== DELETE MODAL ===================== -->
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal" style="max-width:440px;">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-trash-can" style="color:var(--red)"></i> Delete Project</h3>
+        <button class="modal-close" onclick="closeDeleteModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="delete-text">
+          Are you sure you want to delete <strong id="deleteProjectName"></strong>?
+          This action cannot be undone.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeDeleteModal()">Cancel</button>
+        <button class="btn btn-danger" id="confirmDeleteBtn">
+          <i class="fa-solid fa-trash-can"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== TOAST ===================== -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===================== JAVASCRIPT ===================== -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    // ---------- SUPABASE CONFIG ----------
+    const SUPABASE_URL = 'https://zrfmuiyjkzziuiuayijp.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_xiLfbOBZAcO2LZyNGnhjag_TGXr9wMj';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ---------- CONSTANTS ----------
+    const STORAGE_KEY = 'portfolio_projects';
+
+    const DEFAULT_PROJECTS = [
+      {
+        id: 'proj-1',
+        title: 'E-Commerce Platform QA',
+        description: 'Comprehensive test suite covering 150+ test cases for user flows, checkout, and payment gateway. Built automated regression suite using Cypress with CI/CD integration.',
+        tags: ['Cypress', 'Manual QA', 'JIRA', 'Postman', 'GitHub Actions'],
+        featured: true,
+        github: '#',
+        liveDemo: '',
+        results: [
+          { label: '✓ 148 Tests Passed', type: 'pass' },
+          { label: '✗ 2 Bugs Found & Reported', type: 'fail' },
+        ],
+      },
+      {
+        id: 'proj-2',
+        title: 'REST API Test Suite',
+        description: 'Built a complete Postman collection with 80+ API test cases for a social media backend. Integrated with Newman for CI/CD automation.',
+        tags: ['Postman', 'Newman', 'CI/CD'],
+        featured: false,
+        github: '#',
+        liveDemo: '',
+        results: [],
+      },
+      {
+        id: 'proj-3',
+        title: 'Banking App Load Testing',
+        description: 'Designed JMeter load tests for a banking app. Identified bottlenecks under 1000 concurrent users and documented benchmarks.',
+        tags: ['JMeter', 'Performance', 'Reporting'],
+        featured: false,
+        github: '#',
+        liveDemo: '',
+        results: [],
+      },
+      {
+        id: 'proj-4',
+        title: 'Mobile App QA — Android',
+        description: 'Manual and exploratory testing for a fitness tracking app. 200+ test cases, tracked 45 bugs across 3 release cycles.',
+        tags: ['Mobile Testing', 'TestRail', 'Android'],
+        featured: false,
+        github: '#',
+        liveDemo: '',
+        results: [],
+      },
+    ];
+
+    // ---------- DATA ----------
+    let allProjects = [];
+
+    async function fetchProjects() {
+      try {
+        const { data, error } = await supabase
+          .from('projects')
+          .select('*')
+          .order('id', { ascending: true });
+        
+        if (error) throw error;
+        allProjects = data || [];
+        return allProjects;
+      } catch (err) {
+        console.error('Error fetching projects:', err);
+        showToast('Failed to fetch projects from database.', 'error');
+        return [];
+      }
+    }
+
+    function genId() {
+      return Date.now(); // Simple numeric ID for new items
+    }
+
+    function genId() {
+      return 'proj-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
+    }
+
+    // ---------- RENDER ----------
+    async function renderAll() {
+      await fetchProjects();
+      renderStats();
+      renderTable();
+    }
+
+    function renderStats() {
+      const projects = allProjects;
+      const total = projects.length;
+      const featured = projects.filter(p => p.featured).length;
+      const withGithub = projects.filter(p => p.github_url && p.github_url !== '#').length;
+      const totalTags = new Set(projects.flatMap(p => (p.tech_stack || '').split(',').map(s => s.trim()).filter(Boolean))).size;
+
+      document.getElementById('statsBar').innerHTML = `
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fa-solid fa-folder"></i></div>
+          <div>
+            <div class="stat-num">${total}</div>
+            <div class="stat-label">Total Projects</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fa-solid fa-star"></i></div>
+          <div>
+            <div class="stat-num">${featured}</div>
+            <div class="stat-label">Featured</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon muted"><i class="fa-brands fa-github"></i></div>
+          <div>
+            <div class="stat-num">${withGithub}</div>
+            <div class="stat-label">With GitHub</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon red"><i class="fa-solid fa-tags"></i></div>
+          <div>
+            <div class="stat-num">${totalTags}</div>
+            <div class="stat-label">Unique Tags</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderTable() {
+      const projects = allProjects;
+      const tbody = document.getElementById('projectsBody');
+      const empty = document.getElementById('emptyState');
+
+      if (!projects.length) {
+        tbody.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+
+      tbody.innerHTML = projects.map((p, i) => {
+        const tagsArr = (p.tech_stack || '').split(',').map(s => s.trim()).filter(Boolean);
+        const tagsHTML = tagsArr.map(t => `<span class="tag-pill">${esc(t)}</span>`).join('');
+        const links = [];
+        if (p.github_url) links.push(`<a href="${esc(p.github_url)}" target="_blank" style="color:var(--blue);font-size:0.8rem;"><i class="fa-brands fa-github"></i></a>`);
+        if (p.live_url) links.push(`<a href="${esc(p.live_url)}" target="_blank" style="color:var(--green);font-size:0.8rem;"><i class="fa-solid fa-up-right-from-square"></i></a>`);
+
+        return `<tr>
+          <td style="color:var(--muted);font-size:0.8rem;">${p.id}</td>
+          <td>
+            <span class="proj-title-cell">${esc(p.title)}</span>
+            ${p.featured ? '<span class="proj-featured-badge">Featured</span>' : ''}
+          </td>
+          <td>${tagsHTML || '<span style="color:var(--muted);font-size:0.8rem;">—</span>'}</td>
+          <td>${links.join(' ') || '<span style="color:var(--muted);font-size:0.8rem;">—</span>'}</td>
+          <td>
+            <div class="action-group">
+              <button class="btn btn-outline btn-sm btn-icon" title="Edit" onclick="editProject(${p.id})">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" title="Delete" onclick="confirmDelete(${p.id})">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+              <button class="btn ${p.featured ? 'btn-success' : 'btn-outline'} btn-sm btn-icon" title="${p.featured ? 'Unfeature' : 'Feature'}" onclick="toggleFeatured(${p.id})">
+                <i class="fa-solid fa-star"></i>
+              </button>
+            </div>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    // ---------- ESCAPE ----------
+    function esc(str) {
+      const d = document.createElement('div');
+      d.textContent = str || '';
+      return d.innerHTML;
+    }
+
+    // ---------- MODAL ----------
+    function openModal(id) {
+      const overlay = document.getElementById('modal');
+      const form = document.getElementById('projectForm');
+      form.reset();
+      document.getElementById('editId').value = '';
+      document.getElementById('resultsEditor').innerHTML = '';
+
+      if (id) {
+        const p = allProjects.find(pr => pr.id == id);
+        if (p) {
+          document.getElementById('modalTitle').textContent = 'Edit Project';
+          document.getElementById('saveLabel').textContent = 'Update Project';
+          document.getElementById('editId').value = p.id;
+          document.getElementById('fTitle').value = p.title;
+          document.getElementById('fDesc').value = p.description;
+          document.getElementById('fGithub').value = p.github_url || '';
+          document.getElementById('fDemo').value = p.live_url || '';
+          document.getElementById('fTags').value = p.tech_stack || '';
+          document.getElementById('fFeatured').checked = p.featured;
+          if (p.results && p.results.length) {
+            p.results.forEach(r => addResultRow(r.label, r.type));
+          }
+        }
+      } else {
+        document.getElementById('modalTitle').textContent = 'Add Project';
+        document.getElementById('saveLabel').textContent = 'Save Project';
+      }
+      overlay.classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+
+    function editProject(id) { openModal(id); }
+
+    // ---------- RESULTS ROWS ----------
+    function addResultRow(label, type) {
+      const ed = document.getElementById('resultsEditor');
+      const row = document.createElement('div');
+      row.className = 'result-row';
+      row.innerHTML = `
+        <input type="text" placeholder="✓ 120 Tests Passed" value="${esc(label || '')}" />
+        <select>
+          <option value="pass" ${type === 'pass' ? 'selected' : ''}>✓ Pass</option>
+          <option value="fail" ${type === 'fail' ? 'selected' : ''}>✗ Fail</option>
+        </select>
+        <button type="button" class="btn btn-danger btn-sm btn-icon" onclick="this.parentElement.remove()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      `;
+      ed.appendChild(row);
+    }
+
+    // ---------- SAVE ----------
+    async function saveProject(e) {
+      e.preventDefault();
+      const id = document.getElementById('editId').value;
+      const title = document.getElementById('fTitle').value.trim();
+      const description = document.getElementById('fDesc').value.trim();
+      const github_url = document.getElementById('fGithub').value.trim();
+      const live_url = document.getElementById('fDemo').value.trim();
+      const tech_stack = document.getElementById('fTags').value.trim();
+      const featured = document.getElementById('fFeatured').checked;
+
+      // Gather results
+      const results = [];
+      document.querySelectorAll('#resultsEditor .result-row').forEach(row => {
+        const label = row.querySelector('input').value.trim();
+        const type = row.querySelector('select').value;
+        if (label) results.push({ label, type });
+      });
+
+      const btn = document.querySelector('#projectForm + .modal-footer .btn-primary');
+      const originalLabel = document.getElementById('saveLabel').textContent;
+      
+      try {
+        document.getElementById('saveLabel').textContent = 'Saving...';
+        
+        const payload = { title, description, github_url, live_url, tech_stack, featured, results };
+        
+        let result;
+        if (id) {
+          // Update
+          result = await supabase.from('projects').update(payload).eq('id', id);
+        } else {
+          // Create
+          result = await supabase.from('projects').insert([payload]);
+        }
+
+        if (result.error) throw result.error;
+
+        showToast(id ? 'Project updated!' : 'Project added!', 'success');
+        closeModal();
+        renderAll();
+      } catch (err) {
+        console.error('Save error:', err);
+        showToast('Error saving project. Check console.', 'error');
+      } finally {
+        document.getElementById('saveLabel').textContent = originalLabel;
+      }
+    }
+
+    // ---------- DELETE ----------
+    let deleteTargetId = null;
+
+    function confirmDelete(id) {
+      deleteTargetId = id;
+      const p = allProjects.find(pr => pr.id == id);
+      document.getElementById('deleteProjectName').textContent = p ? p.title : 'this project';
+      document.getElementById('deleteModal').classList.add('active');
+    }
+
+    function closeDeleteModal() {
+      document.getElementById('deleteModal').classList.remove('active');
+      deleteTargetId = null;
+    }
+
+    document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
+      if (!deleteTargetId) return;
+      try {
+        const { error } = await supabase.from('projects').delete().eq('id', deleteTargetId);
+        if (error) throw error;
+        
+        closeDeleteModal();
+        renderAll();
+        showToast('Project deleted.', 'error');
+      } catch (err) {
+        console.error('Delete error:', err);
+        showToast('Failed to delete.', 'error');
+      }
+    });
+
+    // ---------- TOGGLE FEATURED ----------
+    async function toggleFeatured(id) {
+      const p = allProjects.find(pr => pr.id == id);
+      if (!p) return;
+      
+      try {
+        const { error } = await supabase.from('projects').update({ featured: !p.featured }).eq('id', id);
+        if (error) throw error;
+        renderAll();
+        showToast(!p.featured ? `"${p.title}" is now featured!` : `"${p.title}" unfeatured.`, 'info');
+      } catch (err) {
+        showToast('Failed to toggle featured status.', 'error');
+      }
+    }
+
+    // ---------- RESET ----------
+    async function resetDefaults() {
+      if (!confirm('This will DELETE all current projects in Supabase and replace them with defaults. Are you sure?')) return;
+      
+      try {
+        showToast('Resetting database...', 'info');
+        
+        // 1. Delete all
+        const { error: delError } = await supabase.from('projects').delete().neq('id', -1);
+        if (delError) throw delError;
+
+        // 2. Format defaults to DB schema
+        const toInsert = DEFAULT_PROJECTS.map(p => ({
+          title: p.title,
+          description: p.description,
+          tech_stack: p.tags.join(', '),
+          github_url: p.github === '#' ? '' : p.github,
+          live_url: p.liveDemo,
+          featured: p.featured,
+          results: p.results
+        }));
+
+        // 3. Insert defaults
+        const { error: insError } = await supabase.from('projects').insert(toInsert);
+        if (insError) throw insError;
+
+        showToast('Projects reset to defaults in Supabase!', 'success');
+        renderAll();
+      } catch (err) {
+        console.error('Reset error:', err);
+        showToast('Failed to reset defaults.', 'error');
+      }
+    }
+
+    // ---------- TOAST ----------
+    function showToast(message, type) {
+      const toast = document.getElementById('toast');
+      const icons = { success: 'fa-circle-check', error: 'fa-circle-xmark', info: 'fa-circle-info' };
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<i class="fa-solid ${icons[type] || icons.info}"></i> ${message}`;
+      requestAnimationFrame(() => toast.classList.add('show'));
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => toast.classList.remove('show'), 3200);
+    }
+
+    // ---------- CLOSE MODALS ON OVERLAY CLICK ----------
+    document.getElementById('modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+    document.getElementById('deleteModal').addEventListener('click', function(e) {
+      if (e.target === this) closeDeleteModal();
+    });
+
+    // ---------- ESC KEY ----------
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeDeleteModal();
+      }
+    });
+
+    // ---------- INIT ----------
+    renderAll();
+  </script>
+
+</body>
+</html>

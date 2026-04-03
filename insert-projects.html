@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insert Projects — Supabase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --blue-light: #eff6ff;
+      --blue-mid: #dbeafe;
+      --fg: #111827;
+      --muted: #6b7280;
+      --light: #f9fafb;
+      --border: #e5e7eb;
+      --white: #ffffff;
+      --green: #16a34a;
+      --green-bg: #dcfce7;
+      --red: #dc2626;
+      --red-bg: #fef2f2;
+      --radius: 14px;
+    }
+
+    body {
+      font-family: 'Sora', sans-serif;
+      background: linear-gradient(135deg, #f0f7ff 0%, #e8f4ff 40%, #f5f0ff 100%);
+      color: var(--fg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 720px;
+      width: 100%;
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .page-header .icon-circle {
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      background: var(--blue);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 8px 24px rgba(37,99,235,0.25);
+    }
+    .page-header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 0.35rem;
+    }
+    .page-header p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Card */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 1.25rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.06); }
+
+    .card-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.4rem;
+    }
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 0.4rem;
+    }
+    .card p {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.22rem 0.65rem;
+      background: var(--blue-light);
+      color: var(--blue);
+      border-radius: 99px;
+      border: 1px solid var(--blue-mid);
+    }
+    .link-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.6rem;
+    }
+    .link-row a {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--blue);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .link-row a:hover { text-decoration: underline; }
+
+    /* Status icon on card */
+    .card-status {
+      float: right;
+      font-size: 1.1rem;
+      margin-left: 0.5rem;
+    }
+    .card-status.pending { color: var(--border); }
+    .card-status.success { color: var(--green); }
+    .card-status.error { color: var(--red); }
+
+    /* Button */
+    .btn-wrap { text-align: center; margin: 1.5rem 0; }
+
+    .btn-insert {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--blue);
+      color: white;
+      padding: 0.9rem 2.4rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Sora', sans-serif;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.25);
+    }
+    .btn-insert:hover:not(:disabled) { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.35); }
+    .btn-insert:active:not(:disabled) { transform: translateY(0); }
+    .btn-insert:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* Result banner */
+    .result-banner {
+      display: none;
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 1rem;
+      animation: fadeSlideIn 0.35s ease;
+    }
+    .result-banner.show { display: block; }
+    .result-banner.success { background: var(--green-bg); color: var(--green); border: 1px solid #bbf7d0; }
+    .result-banner.error { background: var(--red-bg); color: var(--red); border: 1px solid #fecaca; }
+
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Spinner */
+    .spinner {
+      display: inline-block;
+      width: 18px; height: 18px;
+      border: 2.5px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Progress bar */
+    .progress-wrap {
+      display: none;
+      margin-top: 1rem;
+      background: var(--border);
+      border-radius: 99px;
+      height: 8px;
+      overflow: hidden;
+    }
+    .progress-wrap.show { display: block; }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), #818cf8);
+      border-radius: 99px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .progress-label {
+      display: none;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    .progress-label.show { display: block; }
+
+    @media (max-width: 480px) {
+      body { padding: 1.25rem; }
+      .card { padding: 1.25rem; }
+      .btn-insert { padding: 0.8rem 1.8rem; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="page-header">
+      <div class="icon-circle"><i class="fa-solid fa-database"></i></div>
+      <h1>Insert Projects to Supabase</h1>
+      <p>Click the button below to insert all 7 projects into your Supabase <code>projects</code> table.</p>
+    </div>
+
+    <!-- Project preview cards -->
+    <div id="projectCards"></div>
+
+    <!-- Insert button -->
+    <div class="btn-wrap">
+      <button class="btn-insert" id="insertBtn" onclick="insertAll()">
+        <i class="fa-solid fa-cloud-arrow-up"></i> Insert All Projects
+      </button>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-label" id="progressLabel"></div>
+
+    <!-- Result -->
+    <div class="result-banner" id="resultBanner"></div>
+  </div>
+
+  <!-- Supabase JS v2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+  <script>
+    // ---------- SUPABASE CONFIG ----------
+    const SUPABASE_URL = 'https://zrfmuiyjkzziuiuayijp.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_xiLfbOBZAcO2LZyNGnhjag_TGXr9wMj';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // ---------- PROJECT DATA ----------
+    const projects = [
+      {
+        title: 'BugDesk — Bug Tracking Web Application',
+        description: 'Full-stack bug tracking tool with React/Supabase. Features bug reporting, severity/priority classification, and status tracking mirroring professional QA defect management.',
+        tech_stack: 'React, Supabase, Vercel',
+        github_url: 'https://github.com/piash25252/bugdesk-frontend',
+        live_url: '',
+        image_url: ''
+      },
+      {
+        title: 'Selenium Automation — eCommerce Search',
+        description: 'Automated eCommerce search flow on demo.evershop.io using Selenium WebDriver with JavaScript covering search icon click, keyword input, and Enter key submission.',
+        tech_stack: 'Selenium WebDriver, JavaScript, Node.js',
+        github_url: 'https://github.com/piash25252/selenium-automation-search-test',
+        live_url: '',
+        image_url: ''
+      },
+      {
+        title: 'REST API Testing — Postman Collections',
+        description: 'Tested all CRUD endpoints, validated status codes (200, 400, 404, 500), response bodies and headers. Created Newman collections for regression-ready API test execution.',
+        tech_stack: 'Postman, Newman, REST APIs',
+        github_url: '',
+        live_url: '',
+        image_url: ''
+      },
+      {
+        title: 'AGT API Testing — Postman Collection',
+        description: 'Developed Postman collections during AGT Software Partners QA Bootcamp testing real-world API endpoints covering authentication, data validation, and error handling.',
+        tech_stack: 'Postman, REST APIs',
+        github_url: '',
+        live_url: '',
+        image_url: ''
+      },
+      {
+        title: 'E-Commerce Website — Manual Testing',
+        description: 'Designed and executed structured test cases for login, registration, cart and checkout flows with full defect lifecycle documentation in Jira. Identified edge cases and boundary value inputs.',
+        tech_stack: 'Jira, Chrome DevTools, Excel',
+        github_url: '',
+        live_url: '',
+        image_url: ''
+      },
+      {
+        title: 'Regression Test Cases — Login & Registration Module',
+        description: 'Structured regression test cases covering 12+ scenarios across functional, edge case, and boundary value conditions. Documented with actual vs expected outcomes, Pass/Fail status.',
+        tech_stack: 'Excel, Manual Testing, Bug Reporting',
+        github_url: '',
+        live_url: '',
+        image_url: ''
+      },
+      {
+        title: 'QA Testing — Agile Sprint Management with Jira',
+        description: 'Managed complete QA project using Jira Scrum board with user stories, tasks and bug tickets across sprint cycles. Practiced backlog grooming, sprint planning and defect prioritization.',
+        tech_stack: 'Jira, Scrum, Agile',
+        github_url: '',
+        live_url: '',
+        image_url: ''
+      }
+    ];
+
+    // ---------- RENDER PREVIEW CARDS ----------
+    function renderCards() {
+      const wrap = document.getElementById('projectCards');
+      wrap.innerHTML = projects.map((p, i) => {
+        const tags = p.tech_stack.split(',').map(t => `<span class="tag">${t.trim()}</span>`).join('');
+        let links = '';
+        if (p.github_url) links += `<a href="${p.github_url}" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>`;
+        if (p.live_url) links += `<a href="${p.live_url}" target="_blank"><i class="fa-solid fa-up-right-from-square"></i> Live</a>`;
+
+        return `<div class="card" id="card-${i}">
+          <span class="card-status pending" id="status-${i}"><i class="fa-regular fa-circle"></i></span>
+          <div class="card-num">Project ${i + 1}</div>
+          <h3>${p.title}</h3>
+          <p>${p.description}</p>
+          <div class="tag-row">${tags}</div>
+          ${links ? `<div class="link-row">${links}</div>` : ''}
+        </div>`;
+      }).join('');
+    }
+
+    // ---------- INSERT ----------
+    async function insertAll() {
+      const btn = document.getElementById('insertBtn');
+      const banner = document.getElementById('resultBanner');
+      const progressWrap = document.getElementById('progressWrap');
+      const progressBar = document.getElementById('progressBar');
+      const progressLabel = document.getElementById('progressLabel');
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Inserting...';
+      banner.className = 'result-banner';
+      banner.style.display = 'none';
+      progressWrap.classList.add('show');
+      progressLabel.classList.add('show');
+
+      let inserted = 0;
+      let errors = [];
+
+      for (let i = 0; i < projects.length; i++) {
+        const statusEl = document.getElementById(`status-${i}`);
+        statusEl.innerHTML = '<span class="spinner" style="border-color:rgba(37,99,235,0.2);border-top-color:var(--blue);width:16px;height:16px;border-width:2px;"></span>';
+        statusEl.className = 'card-status';
+
+        progressLabel.textContent = `Inserting ${i + 1} of ${projects.length}...`;
+        progressBar.style.width = `${((i) / projects.length) * 100}%`;
+
+        const { error } = await supabase.from('projects').insert([projects[i]]);
+
+        if (error) {
+          statusEl.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
+          statusEl.className = 'card-status error';
+          errors.push({ index: i + 1, title: projects[i].title, message: error.message });
+        } else {
+          statusEl.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+          statusEl.className = 'card-status success';
+          inserted++;
+        }
+
+        progressBar.style.width = `${((i + 1) / projects.length) * 100}%`;
+
+        // Small delay so user sees each step
+        await new Promise(r => setTimeout(r, 250));
+      }
+
+      // Done
+      btn.disabled = false;
+
+      if (errors.length === 0) {
+        btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> All Inserted!';
+        banner.className = 'result-banner success show';
+        banner.innerHTML = `<i class="fa-solid fa-circle-check"></i> Successfully inserted all ${inserted} projects into Supabase!`;
+        progressLabel.textContent = 'Done — all projects inserted!';
+      } else if (inserted > 0) {
+        btn.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Partial Success';
+        banner.className = 'result-banner error show';
+        banner.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${inserted} inserted, ${errors.length} failed.<br><br><small>${errors.map(e => `#${e.index} "${e.title}": ${e.message}`).join('<br>')}</small>`;
+        progressLabel.textContent = `Done — ${inserted} succeeded, ${errors.length} failed.`;
+      } else {
+        btn.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Failed';
+        banner.className = 'result-banner error show';
+        banner.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> All insertions failed.<br><br><small>${errors.map(e => `#${e.index}: ${e.message}`).join('<br>')}</small>`;
+        progressLabel.textContent = 'Failed — check errors below.';
+      }
+
+      // Re-enable for retry
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Insert All Projects';
+      }, 4000);
+    }
+
+    // ---------- INIT ----------
+    renderCards();
+  </script>
+
+</body>
+</html>
