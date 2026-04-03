@@ -618,7 +618,12 @@
     // ---------- SUPABASE CONFIG ----------
     const SUPABASE_URL = 'https://zrfmuiyjkzziuiuayijp.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_xiLfbOBZAcO2LZyNGnhjag_TGXr9wMj';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    let sb = null;
+    try {
+      sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    } catch (e) {
+      console.error('Supabase init error:', e);
+    }
 
     // ---------- CONSTANTS ----------
     const STORAGE_KEY = 'portfolio_projects';
@@ -669,12 +674,28 @@
       },
     ];
 
+    // ---------- TOAST (defined early so other functions can use it) ----------
+    function showToast(message, type) {
+      const toast = document.getElementById('toast');
+      const icons = { success: 'fa-circle-check', error: 'fa-circle-xmark', info: 'fa-circle-info' };
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<i class="fa-solid ${icons[type] || icons.info}"></i> ${message}`;
+      requestAnimationFrame(() => toast.classList.add('show'));
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => toast.classList.remove('show'), 3200);
+    }
+
     // ---------- DATA ----------
     let allProjects = [];
 
     async function fetchProjects() {
+      if (!sb) {
+        console.error('Supabase not initialized');
+        showToast('Database not connected. Check Supabase config.', 'error');
+        return [];
+      }
       try {
-        const { data, error } = await supabase
+        const { data, error } = await sb
           .from('projects')
           .select('*')
           .order('id', { ascending: true });
@@ -691,10 +712,6 @@
 
     function genId() {
       return Date.now(); // Simple numeric ID for new items
-    }
-
-    function genId() {
-      return 'proj-' + Date.now() + '-' + Math.random().toString(36).slice(2, 7);
     }
 
     // ---------- RENDER ----------
@@ -879,10 +896,10 @@
         let result;
         if (id) {
           // Update
-          result = await supabase.from('projects').update(payload).eq('id', id);
+          result = await sb.from('projects').update(payload).eq('id', id);
         } else {
           // Create
-          result = await supabase.from('projects').insert([payload]);
+          result = await sb.from('projects').insert([payload]);
         }
 
         if (result.error) throw result.error;
@@ -916,7 +933,7 @@
     document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
       if (!deleteTargetId) return;
       try {
-        const { error } = await supabase.from('projects').delete().eq('id', deleteTargetId);
+        const { error } = await sb.from('projects').delete().eq('id', deleteTargetId);
         if (error) throw error;
         
         closeDeleteModal();
@@ -934,7 +951,7 @@
       if (!p) return;
       
       try {
-        const { error } = await supabase.from('projects').update({ featured: !p.featured }).eq('id', id);
+        const { error } = await sb.from('projects').update({ featured: !p.featured }).eq('id', id);
         if (error) throw error;
         renderAll();
         showToast(!p.featured ? `"${p.title}" is now featured!` : `"${p.title}" unfeatured.`, 'info');
@@ -951,7 +968,7 @@
         showToast('Resetting database...', 'info');
         
         // 1. Delete all
-        const { error: delError } = await supabase.from('projects').delete().neq('id', -1);
+        const { error: delError } = await sb.from('projects').delete().neq('id', -1);
         if (delError) throw delError;
 
         // 2. Format defaults to DB schema
@@ -966,7 +983,7 @@
         }));
 
         // 3. Insert defaults
-        const { error: insError } = await supabase.from('projects').insert(toInsert);
+        const { error: insError } = await sb.from('projects').insert(toInsert);
         if (insError) throw insError;
 
         showToast('Projects reset to defaults in Supabase!', 'success');
@@ -977,16 +994,7 @@
       }
     }
 
-    // ---------- TOAST ----------
-    function showToast(message, type) {
-      const toast = document.getElementById('toast');
-      const icons = { success: 'fa-circle-check', error: 'fa-circle-xmark', info: 'fa-circle-info' };
-      toast.className = `toast ${type}`;
-      toast.innerHTML = `<i class="fa-solid ${icons[type] || icons.info}"></i> ${message}`;
-      requestAnimationFrame(() => toast.classList.add('show'));
-      clearTimeout(toast._timer);
-      toast._timer = setTimeout(() => toast.classList.remove('show'), 3200);
-    }
+
 
     // ---------- CLOSE MODALS ON OVERLAY CLICK ----------
     document.getElementById('modal').addEventListener('click', function(e) {
