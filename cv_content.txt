@@ -1,0 +1,266 @@
+MD PIASH ISLAM 
+
+SQA Intern  |  Manual & Automation Testing 
+piashislam775@gmail.com  |  +880 1307-144133  |  Dhaka, Bangladesh  |  LinkedIn  |  GitHub  |  Portfolio 
+
+CAREER OBJECTIVE 
+
+Computer Science & Engineering graduate seeking an Intern QA Engineer role at Onsys Technologies. Skilled 
+in testing web and mobile applications through both manual and automated approaches — with hands-on 
+experience in Selenium WebDriver, Postman API testing, and Jira-based defect tracking across the full defect 
+lifecycle. Completed an intensive QA Bootcamp at AGT Software Partners covering test case creation & 
+execution, bug reporting, and Agile/Scrum collaboration with developers. Strong understanding of SDLC, STLC, 
+and defect lifecycle with demonstrated ability to document and track software defects clearly and reproducibly. 
+
+TRAINING & CERTIFICATIONS 
+
+QA Bootcamp  —  AGT Software Partners 
+
+Dec 2025 – Feb 2026 
+
+•  Developed and executed comprehensive test plans, test cases, and test scripts (manual and automated) 
+
+on real-world web application projects. 
+
+•  Performed functional, regression, smoke, integration, and exploratory testing — including performance 
+
+• 
+
+testing fundamentals. 
+Identified, documented, and tracked bugs through full defect lifecycle using Jira with reproducible steps, 
+severity, and priority levels. 
+
+•  Collaborated in Agile/Scrum sprints: daily stand-ups, sprint planning, and retrospectives alongside 
+
+developers and stakeholders. 
+
+•  Created and maintained QA documentation including test plans, test reports, and release notes. 
+
+QA Course  —  Ostad 
+
+2025 
+
+•  Manual and automation testing using Selenium WebDriver (JavaScript) with Page Object Model 
+
+framework. 
+
+•  REST API testing with Postman — validated endpoints, status codes, response bodies, and headers for 
+
+backend reliability. 
+
+Advanced English Certificate  —  CECD, Dhaka International University 
+
+Apr – Aug 2025 
+
+•  Strengthened professional written and verbal communication for clear defect reporting and cross-team 
+
+collaboration. 
+
+Career Development Program  —  Nova Institute of Technology (collab. AIUB) 
+
+Jan 2026 
+
+•  Professional communication, workplace readiness, and career planning. (S/N: CDP-266119) 
+
+NOTABLE PROJECTS 
+
+BugDesk — Bug Tracking Web Application  —  React · Supabase · Vercel 
+github.com/piash25252/bugdesk-frontend  |  Live Demo 
+
+2025 
+
+•  Built and deployed a full-stack bug tracking tool with React/Supabase — directly applicable to real-world 
+
+• 
+
+defect lifecycle management workflows. 
+Implemented features for bug reporting, severity/priority classification, and status tracking — mirroring 
+professional QA defect management processes. 
+
+•  Wrote and maintained QA documentation for the application, demonstrating ability to create and maintain 
+
+test environments. 
+
+E-Commerce Website — End-to-End Manual Testing  —  Jira · Chrome DevTools 
+
+2025 
+•  Designed and executed structured test cases for login, registration, cart, and checkout flows with full 
+
+defect lifecycle documentation in Jira. 
+Identified edge cases: boundary value inputs, empty field submissions, and session timeout behaviors. 
+
+• 
+
+ 
+•  Leveraged structured exploratory techniques for test case ideation and edge case analysis to improve 
+
+coverage. 
+
+REST API Testing — Postman Collections  —  Postman · REST APIs 
+
+2025 
+
+•  Tested all CRUD operation endpoints; validated status codes (200, 400, 404, 500), response bodies, and 
+
+headers. 
+
+•  Created organized Postman collections with Newman for regression-ready API test execution with clear 
+
+pass/fail documentation. 
+
+Live Collection: View Postman Collection 
+
+AGT API Testing — Postman Collection  —  Postman · REST APIs · AGT Bootcamp 
+
+2025 
+
+•  Developed and organized Postman collections during AGT Software Partners QA Bootcamp — tested 
+
+real-world API endpoints covering authentication, data validation, and error handling scenarios. 
+
+•  Validated status codes, response bodies, and headers; documented pass/fail results with reproducible 
+
+request setups for team review. 
+Live Collection: View AGT Postman Collection 
+
+Regression Test Cases — Login, Home Page & Registration Module  —  Excel · Manual Testing · 
+Bug Reporting 
+
+2025 
+
+•  Designed and executed structured regression test cases for Login, Home Page, and Registration modules 
+
+— covering 12+ test scenarios across functional, edge case, and boundary value conditions. 
+
+•  Documented test execution results with actual vs. expected outcomes, Pass/Fail status, severity, and 
+
+priority — tracked defects with Issue IDs following a structured bug lifecycle. 
+
+•  Maintained QA documentation in Excel using a professional Basic Test Case Template — covering Test 
+
+Case ID, Test Scenario, Input Data, Expected & Actual Results, and Test Environment fields. 
+
+Selenium Automation — eCommerce Search Functionality  —  Selenium WebDriver · JavaScript · 
+Node.js 
+
+2025 
+
+•  Automated eCommerce search flow on demo.evershop.io using Selenium WebDriver with JavaScript — 
+
+• 
+
+covering search icon click, keyword input, and Enter key submission scenarios. 
+Implemented element locators with Chrome WebDriver, applied explicit waits, and structured test logic for 
+reliable cross-run execution. 
+
+•  GitHub: github.com/piash25252/selenium-automation-search-test 
+
+QA Testing — Agile Sprint Management with Jira  —  Jira · Scrum · Agile 
+
+2025 
+
+•  Managed a complete QA testing project using Jira Scrum board — created and organized user stories, 
+
+tasks, and bug tickets across sprint cycles following Agile methodology. 
+
+•  Practiced real-world QA workflow: backlog grooming, sprint planning, ticket status tracking (To Do → In 
+
+Progress → Done), and defect prioritization with severity labels. 
+
+TECHNICAL SKILLS 
+
+Testing 
+
+Automation 
+
+API Testing 
+
+Manual, Functional, Regression, Integration, Performance, Smoke, Exploratory, UAT, Edge 
+Case Analysis 
+
+Selenium WebDriver (JS & Python), Playwright, Page Object Model 
+
+Postman, Newman, REST APIs — CRUD, status codes, response body & header validation 
+
+Bug Tracking 
+
+Jira, Bugzilla, Azure DevOps, Trello, Linear 
+
+QA Docs 
+
+Languages 
+
+Test Plans, Test Cases, Test Scripts, Bug Reports, Release Notes, User Manuals 
+
+JavaScript, Python, TypeScript, Java 
+
+Version Control 
+
+Git & GitHub 
+
+Methodology 
+
+Agile / Scrum (stand-ups, sprint planning, retrospectives), SDLC, STLC, Defect Lifecycle 
+
+Tools 
+
+MS Excel, Google Sheets, Chrome DevTools, VS Code, Cursor IDE 
+
+Languages (Human)  Bangla — Native  |  English — Professional Proficiency 
+
+ 
+WORK EXPERIENCE 
+
+IT Support & Digital Marketing Executive  —  BIMDUR Pvt. Ltd., Dhaka 
+
+Dec 2022 – Dec 2023 
+
+•  Provided first-level technical support — resolved 10+ hardware/software issues monthly using systematic 
+
+troubleshooting and detailed step-by-step documentation. 
+
+•  Maintained detailed records of recurring issues — directly applicable to defect lifecycle tracking and QA 
+
+documentation practices. 
+
+•  Ensured data and content accuracy across platforms — reinforcing the attention-to-detail essential for 
+
+SQA roles. 
+
+EDUCATION 
+
+B.Sc. in Computer Science & Engineering  —  Dhaka International University  CGPA: 2.90 / 4.00 
+Thesis: Machine Learning-Based Assessment of Cybersecurity Awareness — A Behavioral Analysis Approach 
+
+Higher Secondary Certificate (HSC)  —  Govt. Sara Marwari Model School and CollegeGPA: 4.17 / 
+5.00 
+
+AI-ASSISTED DEVELOPMENT 
+
+Built and deployed 2 full-stack web applications using Claude AI and Cursor IDE — demonstrating ability to 
+understand application architecture, user flows, and system behavior essential for effective SQA. 
+
+•  MediCare BD — Bilingual hospital management web app (React · TypeScript · Supabase · Netlify)  Live 
+
+• 
+
+Demo 
+Ishwardi Community Platform — Bilingual community directory with jobs, listings & notice board (React 
+· Supabase · Netlify)  Live Demo 
+
+EXTRACURRICULAR ACTIVITIES 
+
+•  General Member — University Volunteer Club (2022–Present): Community service, event organization, 
+
+campus welfare. 
+
+•  General Member — CPC Computer Programming Club (2022–Present): Participated in 5+ programming 
+
+contests, workshops, and peer learning sessions. 
+
+REFERENCE 
+
+Md Biplob Hossain 
+Branch Manager, BIMDUR Pvt. Ltd., Dhaka  |  Tel: 01720-803459  |  Email: biplobislam2080@gmail.com 
+
+

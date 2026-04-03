@@ -399,6 +399,19 @@ body {
   border: 1px solid var(--blue-mid);
 }
 
+.pill-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.8rem !important;
+}
+
+.pill-with-icon img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
 /* ================================
    PROJECTS
 ================================ */
@@ -413,6 +426,47 @@ body {
 }
 .proj-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
 .proj-card.featured { grid-column: span 2; border: 2px solid var(--blue-mid); background: var(--blue-light); }
+
+/* Project Filters */
+.project-filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 0.6rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  background: var(--white);
+  color: var(--muted);
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+.filter-btn:hover { background: var(--blue-light); color: var(--blue); border-color: var(--blue-mid); }
+.filter-btn.active {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+  box-shadow: 0 4px 12px rgba(37,99,235,0.2);
+}
+
+/* Tool Logo wrapper */
+.proj-icon-wrapper {
+  background: var(--light);
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+}
+.proj-icon-wrapper img { width: 28px; height: 28px; object-fit: contain; }
 
 .proj-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
 .proj-badge { font-size: 0.72rem; font-weight: 700; padding: 0.25rem 0.75rem; background: var(--blue); color: white; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.05em; }
