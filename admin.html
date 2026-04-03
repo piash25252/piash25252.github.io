@@ -918,7 +918,7 @@
       try {
         document.getElementById('saveLabel').textContent = 'Saving...';
         
-        const payload = { title, description, github_url, live_url, tech_stack, featured, results };
+        const payload = { title, description, github_url, live_url, tech_stack };
         
         let result;
         if (id) {
@@ -974,17 +974,8 @@
 
     // ---------- TOGGLE FEATURED ----------
     async function toggleFeatured(id) {
-      const p = allProjects.find(pr => pr.id == id);
-      if (!p) return;
-      
-      try {
-        const { error } = await sb.from('projects').update({ featured: !p.featured }).eq('id', id);
-        if (error) throw error;
-        renderAll();
-        showToast(!p.featured ? `"${p.title}" is now featured!` : `"${p.title}" unfeatured.`, 'info');
-      } catch (err) {
-        showToast('Failed to toggle featured status.', 'error');
-      }
+      // Supabase database hasn't been updated with 'featured' column yet
+      showToast("Cannot toggle Feature. 'featured' column missing in database schema.", 'error');
     }
 
     // ---------- RESET ----------
