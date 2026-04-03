@@ -39,6 +39,57 @@
       min-height: 100vh;
     }
 
+    /* ---------- LOGIN OVERLAY ---------- */
+    .login-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--light);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .login-box {
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+      border: 1px solid var(--border);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+    .login-box .icon {
+      font-size: 2.5rem;
+      color: var(--blue);
+      margin-bottom: 1rem;
+    }
+    .login-box h2 {
+      margin-bottom: 0.5rem;
+      font-size: 1.4rem;
+    }
+    .login-box p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    .login-box input:focus {
+      outline: none;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px var(--blue-mid);
+    }
+    .login-box button { width: 100%; }
+
     /* ---------- Top header ---------- */
     .admin-header {
       position: sticky;
@@ -457,6 +508,18 @@
 </head>
 <body>
 
+  <!-- LOGIN OVERLAY -->
+  <div id="loginOverlay" class="login-overlay">
+    <div class="login-box">
+      <div class="icon"><i class="fa-solid fa-lock"></i></div>
+      <h2>Admin Login</h2>
+      <p>Enter the master password to access the project dashboard.</p>
+      <input type="password" id="adminPassword" placeholder="Enter password" onkeypress="if(event.key === 'Enter') checkLogin()" />
+      <button class="btn btn-primary" onclick="checkLogin()">Login to Dashboard</button>
+      <p id="loginError" style="color:var(--red); font-size:0.85rem; margin-top:0.8rem; display:none;">Incorrect password!</p>
+    </div>
+  </div>
+
   <!-- ===================== HEADER ===================== -->
   <header class="admin-header">
     <div class="admin-header-inner">
@@ -700,17 +763,6 @@
         results: []
       }
     ];
-
-    // ---------- TOAST (defined early so other functions can use it) ----------
-    function showToast(message, type) {
-      const toast = document.getElementById('toast');
-      const icons = { success: 'fa-circle-check', error: 'fa-circle-xmark', info: 'fa-circle-info' };
-      toast.className = `toast ${type}`;
-      toast.innerHTML = `<i class="fa-solid ${icons[type] || icons.info}"></i> ${message}`;
-      requestAnimationFrame(() => toast.classList.add('show'));
-      clearTimeout(toast._timer);
-      toast._timer = setTimeout(() => toast.classList.remove('show'), 3200);
-    }
 
     // ---------- DATA ----------
     let allProjects = [];
@@ -1030,7 +1082,36 @@
       }
     });
 
-    // ---------- INIT ----------
+    // ---------- TOAST ----------
+    const toast = document.getElementById('toast');
+    function showToast(msg, type = 'info') {
+      toast.textContent = msg;
+      toast.className = 'toast show ' + type;
+      setTimeout(() => {
+        toast.className = 'toast';
+      }, 3000);
+    }
+
+    // ---------- LOGIN AUTH ----------
+    const MASTER_PASSWORD = "admin"; // Using simple password for now
+
+    function checkLogin() {
+      const pwd = document.getElementById('adminPassword').value;
+      if (pwd === MASTER_PASSWORD) {
+        document.getElementById('loginOverlay').style.display = 'none';
+        sessionStorage.setItem('admin_auth', 'true');
+        showToast('Login successful', 'success');
+      } else {
+        document.getElementById('loginError').style.display = 'block';
+        setTimeout(() => document.getElementById('loginError').style.display = 'none', 3000);
+      }
+    }
+
+    if (sessionStorage.getItem('admin_auth') === 'true') {
+      document.getElementById('loginOverlay').style.display = 'none';
+    }
+
+    // ---------- MAIN STATE ----------
     renderAll();
   </script>
 
