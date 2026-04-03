@@ -1342,11 +1342,16 @@
     }
 
     // ---------- LOGIN AUTH ----------
-    const MASTER_PASSWORD = "Bimdur25252?%"; // Using simple password for now
+    const MASTER_HASH = "e0e8f6c225004f702059824c5eea65489a208d899ef0c4693eb9535939770d15"; // Hashed password
 
-    function checkLogin() {
+    async function checkLogin() {
       const pwd = document.getElementById('adminPassword').value;
-      if (pwd === MASTER_PASSWORD) {
+      const buf = new TextEncoder().encode(pwd);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', buf);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+      if (hashHex === MASTER_HASH) {
         document.getElementById('loginOverlay').style.display = 'none';
         sessionStorage.setItem('admin_auth', 'true');
         showToast('Login successful', 'success');
