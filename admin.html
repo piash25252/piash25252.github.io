@@ -631,47 +631,74 @@
     const DEFAULT_PROJECTS = [
       {
         id: 'proj-1',
-        title: 'E-Commerce Platform QA',
-        description: 'Comprehensive test suite covering 150+ test cases for user flows, checkout, and payment gateway. Built automated regression suite using Cypress with CI/CD integration.',
-        tags: ['Cypress', 'Manual QA', 'JIRA', 'Postman', 'GitHub Actions'],
+        title: 'BugDesk — Bug Tracking Web Application',
+        description: 'Built and deployed a full-stack bug tracking tool with React/Supabase — directly applicable to real-world defect lifecycle management workflows. Implemented features for bug reporting, severity/priority classification, and status tracking.',
+        tags: ['React', 'Supabase', 'Vercel', 'QA'],
         featured: true,
-        github: '#',
+        github: 'https://github.com/piash25252/bugdesk-frontend',
         liveDemo: '',
-        results: [
-          { label: '✓ 148 Tests Passed', type: 'pass' },
-          { label: '✗ 2 Bugs Found & Reported', type: 'fail' },
-        ],
+        results: []
       },
       {
         id: 'proj-2',
-        title: 'REST API Test Suite',
-        description: 'Built a complete Postman collection with 80+ API test cases for a social media backend. Integrated with Newman for CI/CD automation.',
-        tags: ['Postman', 'Newman', 'CI/CD'],
-        featured: false,
-        github: '#',
+        title: 'E-Commerce Website — End-to-End Manual Testing',
+        description: 'Designed and executed structured test cases for login, registration, cart, and checkout flows with full defect lifecycle documentation in Jira. Identified edge cases: boundary value inputs, empty field submissions, and session timeout.',
+        tags: ['Jira', 'Chrome DevTools', 'Manual Testing'],
+        featured: true,
+        github: '',
         liveDemo: '',
-        results: [],
+        results: []
       },
       {
         id: 'proj-3',
-        title: 'Banking App Load Testing',
-        description: 'Designed JMeter load tests for a banking app. Identified bottlenecks under 1000 concurrent users and documented benchmarks.',
-        tags: ['JMeter', 'Performance', 'Reporting'],
-        featured: false,
-        github: '#',
+        title: 'Selenium Automation — eCommerce Search Functionality',
+        description: 'Automated eCommerce search flow on demo.evershop.io using Selenium WebDriver with JavaScript — covering search icon click, keyword input, and Enter key submission scenarios. Implemented element locators with explicit waits.',
+        tags: ['Selenium WebDriver', 'JavaScript', 'Node.js'],
+        featured: true,
+        github: 'https://github.com/piash25252/selenium-automation-search-test',
         liveDemo: '',
-        results: [],
+        results: []
       },
       {
         id: 'proj-4',
-        title: 'Mobile App QA — Android',
-        description: 'Manual and exploratory testing for a fitness tracking app. 200+ test cases, tracked 45 bugs across 3 release cycles.',
-        tags: ['Mobile Testing', 'TestRail', 'Android'],
+        title: 'REST API Testing & AGT Automation — Postman',
+        description: 'Tested all CRUD operation endpoints; validated status codes (200, 400, 404, 500), response bodies, and headers. Created organized Postman collections with Newman for regression-ready API test execution with clear pass/fail documentation.',
+        tags: ['Postman', 'REST APIs', 'Newman'],
         featured: false,
-        github: '#',
+        github: '',
         liveDemo: '',
-        results: [],
+        results: []
       },
+      {
+        id: 'proj-5',
+        title: 'Regression Test Cases — Login & Registration',
+        description: 'Designed and executed structured regression test cases for Login, Home Page, and Registration modules — covering 12+ scenarios across functional, edge case, and boundary conditions. Documented test results with actual vs. expected outcomes.',
+        tags: ['Excel', 'Manual Testing', 'Bug Reporting'],
+        featured: false,
+        github: '',
+        liveDemo: '',
+        results: []
+      },
+      {
+        id: 'proj-6',
+        title: 'QA Testing — Agile Sprint Management with Jira',
+        description: 'Managed a complete QA testing project using Jira Scrum board — created and organized user stories, tasks, and bug tickets across sprint cycles following Agile methodology. Practiced backlog grooming, sprint planning, and defect severity prioritization.',
+        tags: ['Jira', 'Scrum', 'Agile'],
+        featured: false,
+        github: '',
+        liveDemo: '',
+        results: []
+      },
+      {
+        id: 'proj-7',
+        title: 'MediCare BD & Ishwardi Community (AI-Assisted)',
+        description: 'Built and deployed 2 full-stack bilingual web applications using Claude AI and Cursor IDE (Hospital management and Community directory) — demonstrating ability to understand complex application architecture, user flows, and SQA behavior.',
+        tags: ['React', 'TypeScript', 'Supabase', 'Netlify', 'AI Tools'],
+        featured: false,
+        github: '',
+        liveDemo: '',
+        results: []
+      }
     ];
 
     // ---------- TOAST (defined early so other functions can use it) ----------
