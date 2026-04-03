@@ -772,13 +772,13 @@
           <td>${links.join(' ') || '<span style="color:var(--muted);font-size:0.8rem;">—</span>'}</td>
           <td>
             <div class="action-group">
-              <button class="btn btn-outline btn-sm btn-icon" title="Edit" onclick="editProject(${p.id})">
+              <button class="btn btn-outline btn-sm btn-icon" title="Edit" onclick="editProject('${p.id}')">
                 <i class="fa-solid fa-pen"></i>
               </button>
-              <button class="btn btn-danger btn-sm btn-icon" title="Delete" onclick="confirmDelete(${p.id})">
+              <button class="btn btn-danger btn-sm btn-icon" title="Delete" onclick="confirmDelete('${p.id}')">
                 <i class="fa-solid fa-trash-can"></i>
               </button>
-              <button class="btn ${p.featured ? 'btn-success' : 'btn-outline'} btn-sm btn-icon" title="${p.featured ? 'Unfeature' : 'Feature'}" onclick="toggleFeatured(${p.id})">
+              <button class="btn ${p.featured ? 'btn-success' : 'btn-outline'} btn-sm btn-icon" title="${p.featured ? 'Unfeature' : 'Feature'}" onclick="toggleFeatured('${p.id}')">
                 <i class="fa-solid fa-star"></i>
               </button>
             </div>
