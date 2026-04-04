@@ -7,6 +7,52 @@
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css?v=2" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-63RG832DZY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-63RG832DZY');
+  </script>
+
+  <!-- Portfolio Tracker -->
+  <script>
+    const WEBHOOK_URL = 'https://YOUR-N8N.railway.app/webhook/portfolio-visit';
+
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get('ref') || 'direct';
+
+    const clicks = {};
+    document.addEventListener('click', (e) => {
+      const section = e.target.closest('section')?.id || 
+                      e.target.closest('[id]')?.id || 
+                      e.target.tagName;
+      clicks[section] = (clicks[section] || 0) + 1;
+    });
+
+    window.addEventListener('beforeunload', () => {
+      const data = {
+        ref,
+        url: window.location.href,
+        time_spent: Math.round(performance.now() / 1000),
+        clicks,
+        timestamp: new Date().toISOString()
+      };
+      navigator.sendBeacon(WEBHOOK_URL, JSON.stringify(data));
+    });
+
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ref,
+        event: 'page_load',
+        timestamp: new Date().toISOString()
+      })
+    });
+  </script>
 </head>
 <body>
 
