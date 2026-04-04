@@ -401,7 +401,7 @@ body {
 }
 .astat { text-align: center; }
 .astat-n { font-size: 1.5rem; font-weight: 700; color: var(--blue); display: block; }
-.astat-l { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.astat-l { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; display: block; margin-top: 0.2rem; }
 
 .about-content h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: 1rem; color: var(--fg); }
 .about-content p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }

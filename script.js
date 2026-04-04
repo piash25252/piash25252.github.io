@@ -69,7 +69,7 @@ const statsObserver = new IntersectionObserver((entries) => {
       statsObserver.unobserve(target);
     }
   });
-}, { threshold: 0.5 });
+}, { threshold: 0.1 });
 
 document.querySelectorAll('.astat-n').forEach(el => statsObserver.observe(el));
 
