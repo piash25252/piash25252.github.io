@@ -863,6 +863,12 @@
           </div>
 
           <div class="form-group">
+            <label>Image URL (Optional)</label>
+            <input type="url" id="fImage" placeholder="https://images.unsplash.com/photo-..." />
+            <p class="form-hint">Paste a link to a project screenshot or thumbnail</p>
+          </div>
+
+          <div class="form-group">
             <label>Tags</label>
             <input type="text" id="fTags" placeholder="Cypress, Postman, JIRA" />
             <p class="form-hint">Separate multiple tags with commas</p>
@@ -1158,6 +1164,7 @@
           document.getElementById('fGithub').value = p.github_url || '';
           document.getElementById('fDemo').value = p.live_url || '';
           document.getElementById('fTags').value = p.tech_stack || '';
+          document.getElementById('fImage').value = p.image_url || '';
           document.getElementById('fFeatured').checked = p.featured;
           if (p.results && p.results.length) {
             p.results.forEach(r => addResultRow(r.label, r.type));
@@ -1203,6 +1210,7 @@
       const github_url = document.getElementById('fGithub').value.trim();
       const live_url = document.getElementById('fDemo').value.trim();
       const tech_stack = document.getElementById('fTags').value.trim();
+      const image_url = document.getElementById('fImage').value.trim();
       const featured = document.getElementById('fFeatured').checked;
 
       // Gather results
@@ -1219,7 +1227,7 @@
       try {
         document.getElementById('saveLabel').textContent = 'Saving...';
 
-        const payload = { title, description, github_url, live_url, tech_stack };
+        const payload = { title, description, github_url, live_url, tech_stack, image_url, featured, results };
 
         let result;
         if (id) {
@@ -1275,8 +1283,23 @@
 
     // ---------- TOGGLE FEATURED ----------
     async function toggleFeatured(id) {
-      // Supabase database hasn't been updated with 'featured' column yet
-      showToast("Cannot toggle Feature. 'featured' column missing in database schema.", 'error');
+      const p = allProjects.find(pr => pr.id == id);
+      if (!p) return;
+      
+      try {
+        const { error } = await sb.from('projects').update({ featured: !p.featured }).eq('id', id);
+        if (error) {
+           if (error.message.includes('featured')) {
+             showToast("Missing 'featured' column in DB", 'error');
+           } else throw error;
+        } else {
+          showToast(p.featured ? 'Unfeatured!' : 'Featured!', 'success');
+          renderAll();
+        }
+      } catch (err) {
+        console.error('Toggle error:', err);
+        showToast('Update failed.', 'error');
+      }
     }
 
     // ---------- RESET ----------

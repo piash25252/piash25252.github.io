@@ -102,13 +102,18 @@
       resultsHTML = `<div class="proj-results">${items}</div>`;
     }
 
-    // Icon
+    // Icon fallback if no image
     const iconUrl = getProjectIcon(proj.tech_stack);
+    
+    // Image support (if proj.image_url exists in database)
+    const imgHTML = proj.image_url 
+      ? `<img src="${esc(proj.image_url)}" class="proj-img" alt="${esc(proj.title)}">` 
+      : `<div class="proj-icon-wrapper"><img src="${iconUrl}" alt="Tool Icon"></div>`;
 
     return `
       <div class="${cls}" data-project-id="${esc(proj.id)}">
         <div class="proj-top">
-           <div class="proj-icon-wrapper"><img src="${iconUrl}" alt="Tool Icon"></div>
+           ${imgHTML}
            <div>${topContent}</div>
         </div>
         <h3>${esc(proj.title)}</h3>
@@ -193,25 +198,8 @@
         grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #6b7280; padding: 2rem;">No projects found for this category.</div>';
       }
 
-      // Re-apply the fade-in observer
-      if (typeof IntersectionObserver !== 'undefined') {
-        const obs = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.style.opacity = '1';
-              entry.target.style.transform = 'translateY(0)';
-              obs.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.05 });
-        
-        grid.querySelectorAll('.proj-card').forEach((el) => {
-          el.style.opacity = '0';
-          el.style.transform = 'translateY(20px)';
-          el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-          obs.observe(el);
-        });
-      }
+      // Re-trigger scroll reveal from script.js
+      if (window.ObserveNewElements) window.ObserveNewElements();
     }
   }
 

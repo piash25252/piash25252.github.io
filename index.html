@@ -21,7 +21,12 @@
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a href="resume.pdf" class="nav-resume" download>↓ Resume</a>
+      <div class="header-right">
+        <button id="theme-toggle" class="theme-btn" title="Toggle Dark Mode">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <a href="resume.pdf" class="nav-resume" download>↓ Resume</a>
+      </div>
     </div>
   </header>
 
@@ -50,7 +55,7 @@
       <div class="hero-text">
         <p class="hello-text">Hello, I'm</p>
         <h1><span class="name-blue">Md Piash Islam</span></h1>
-        <p class="hero-subtitle">Entry-Level Software Quality Assurance Engineer</p>
+        <p class="hero-subtitle">I'm a <span id="typed"></span></p>
         <p class="hero-desc">
           Passionate about ensuring software quality through meticulous testing, detailed documentation, and continuous learning. Ready to contribute to your team's success.
         </p>
@@ -98,9 +103,11 @@
             <div class="about-photo-placeholder" id="aboutInitials" style="display:none;">PI</div>
           </div>
           <div class="about-stats">
-            <div class="astat"><span class="astat-n">5+</span><span class="astat-l">Projects</span></div>
-            <div class="astat"><span class="astat-n">3+</span><span class="astat-l">Certifications</span></div>
-            <div class="astat"><span class="astat-n">100%</span><span class="astat-l">Dedication</span></div>
+          <div class="about-stats">
+            <div class="astat"><span class="astat-n" data-target="5">0</span><span class="astat-l">Projects</span></div>
+            <div class="astat"><span class="astat-n" data-target="3">0</span><span class="astat-l">Certifications</span></div>
+            <div class="astat"><span class="astat-n" data-target="100">0</span><span class="astat-l">Dedication %</span></div>
+          </div>
           </div>
         </div>
         <div class="about-content">
@@ -255,7 +262,7 @@
               <span class="tl-type">Education</span>
               <h3>BSc in Computer Science & Engineering</h3>
               <p class="tl-org">Dhaka International University (DIU) · Dhaka</p>
-              <p class="tl-desc">CGPA: 2.90 / 4.00. Focus on software engineering and cybersecurity awareness assessment.</p>
+              <p class="tl-desc">Focus on software engineering and cybersecurity awareness assessment.</p>
             </div>
           </div>
         </div>

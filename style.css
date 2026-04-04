@@ -22,6 +22,16 @@
   --radius: 14px;
 }
 
+[data-theme="dark"] {
+  --white: #0f172a;
+  --light: #1e293b;
+  --fg: #f1f5f9;
+  --muted: #94a3b8;
+  --border: #334155;
+  --blue-light: rgba(37, 99, 235, 0.1);
+  --blue-mid: #3b82f6;
+}
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -77,6 +87,32 @@ body {
   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--blue); }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.theme-btn {
+  background: var(--light);
+  border: 1px solid var(--border);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--blue);
+  font-size: 1rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-btn:hover {
+  background: var(--blue-light);
+  transform: translateY(-1px);
+}
 
 .nav-resume {
   font-size: 0.85rem;
@@ -204,6 +240,18 @@ body {
   line-height: 1.75;
   max-width: 580px;
   margin: 0 auto 2rem;
+}
+
+#typed {
+  color: var(--blue);
+  font-weight: 700;
+  border-right: 2px solid var(--blue);
+  padding-right: 5px;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
 }
 
 .hero-btns {
@@ -480,6 +528,16 @@ body {
 .pr-item { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 500; padding: 0.25rem 0.75rem; border-radius: 6px; }
 .pr-item.pass { background: var(--green-bg); color: var(--green); }
 .pr-item.fail { background: #fef2f2; color: #dc2626; }
+
+/* Image support */
+.proj-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--border);
+}
 
 /* ================================
    TIMELINE

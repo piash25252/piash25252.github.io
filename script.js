@@ -1,11 +1,37 @@
 // ================================
+// THEME TOGGLE (Dark Mode)
+// ================================
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.documentElement;
+const icon = themeToggle?.querySelector('i');
+
+// Check saved theme
+const savedTheme = localStorage.getItem('theme') || 'light';
+body.setAttribute('data-theme', savedTheme);
+updateIcon(savedTheme);
+
+themeToggle?.addEventListener('click', () => {
+  const current = body.getAttribute('data-theme');
+  const next = current === 'light' ? 'dark' : 'light';
+  body.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateIcon(next);
+});
+
+function updateIcon(theme) {
+  if (!icon) return;
+  icon.className = theme === 'light' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+}
+
+// ================================
 // TYPING EFFECT
 // ================================
 const typedEl = document.getElementById('typed');
-const words = ['Manual Tester', 'Automation Tester', 'API Tester', 'Bug Hunter', 'QA Advocate'];
+const words = ['SQA Engineer', 'Manual Tester', 'Automation Tester', 'API Tester', 'Bug Hunter'];
 let wi = 0, ci = 0, deleting = false;
 
 function type() {
+  if (!typedEl) return;
   const word = words[wi];
   typedEl.textContent = deleting
     ? word.substring(0, ci - 1)
@@ -13,14 +39,39 @@ function type() {
 
   deleting ? ci-- : ci++;
 
-  let speed = deleting ? 55 : 95;
-  if (!deleting && ci === word.length) { speed = 1800; deleting = true; }
-  else if (deleting && ci === 0) { deleting = false; wi = (wi + 1) % words.length; speed = 300; }
+  let speed = deleting ? 50 : 100;
+  if (!deleting && ci === word.length) { speed = 2000; deleting = true; }
+  else if (deleting && ci === 0) { deleting = false; wi = (wi + 1) % words.length; speed = 500; }
 
   setTimeout(type, speed);
 }
 
 if (typedEl) type();
+
+// ================================
+// NUMBERS ANIMATION (Counters)
+// ================================
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const target = entry.target;
+      const endValue = parseInt(target.getAttribute('data-target'));
+      let startValue = 0;
+      const duration = 2000;
+      const stepTime = Math.abs(Math.floor(duration / endValue));
+
+      const timer = setInterval(() => {
+        startValue += 1;
+        target.textContent = startValue + (endValue === 5 || endValue === 3 ? '+' : endValue === 100 ? '%' : '');
+        if (startValue === endValue) clearInterval(timer);
+      }, stepTime);
+      
+      statsObserver.unobserve(target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.astat-n').forEach(el => statsObserver.observe(el));
 
 // ================================
 // PROFILE IMAGE — hide if broken
@@ -51,7 +102,7 @@ const tlObserver = new IntersectionObserver(entries => {
 document.querySelectorAll('.tl-item').forEach(el => tlObserver.observe(el));
 
 // ================================
-// NAVBAR ACTIVE LINK ON SCROLL
+// NAVBAR SCROLL EFFECT
 // ================================
 window.addEventListener('scroll', () => {
   const header = document.getElementById('header');
@@ -75,25 +126,19 @@ const fadeObserver = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.skill-cat-card, .proj-card, .ci-card').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(20px)';
-  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-  fadeObserver.observe(el);
-});
-
-// ================================
-// CONTACT FORM SUBMIT
-// ================================
-function handleSubmit(e) {
-  e.preventDefault();
-  const btn = e.target.querySelector('.btn-primary');
-  const original = btn.textContent;
-  btn.textContent = '✓ Message Sent!';
-  btn.style.background = '#16a34a';
-  setTimeout(() => {
-    btn.textContent = original;
-    btn.style.background = '';
-    e.target.reset();
-  }, 3000);
+function observeElements() {
+  document.querySelectorAll('.skill-cat-card, .proj-card, .ci-card, .section-header').forEach(el => {
+    if (!el.classList.contains('observed')) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+      el.classList.add('observed');
+      fadeObserver.observe(el);
+    }
+  });
 }
+
+observeElements();
+
+// Expose observeElements for dynamically added content (like projects)
+window.ObserveNewElements = observeElements;
