@@ -43,27 +43,44 @@
     return d.innerHTML;
   }
 
-  // ---------- LOGOS ----------
-  const LOGO_MAP = {
-    'postman': 'https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg',
-    'selenium': 'https://www.vectorlogo.zone/logos/seleniumhq/seleniumhq-icon.svg',
-    'react': 'https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg',
-    'jira': 'https://www.vectorlogo.zone/logos/atlassian_jira/atlassian_jira-icon.svg',
-    'cypress': 'https://www.vectorlogo.zone/logos/cypressio/cypressio-icon.svg',
-    'excel': 'https://www.vectorlogo.zone/logos/microsoft_excel/microsoft_excel-icon.svg',
-    'qa': 'https://www.vectorlogo.zone/logos/github/github-tile.svg',
-    'manual': 'https://www.vectorlogo.zone/logos/google_sheets/google_sheets-icon.svg',
-    'test': 'https://www.vectorlogo.zone/logos/github/github-tile.svg',
-    'documentation': 'https://www.vectorlogo.zone/logos/google_docs/google_docs-icon.svg'
+  // ---------- ICON EMOJI MAP (no broken images!) ----------
+  const ICON_MAP = {
+    'postman': '📮',
+    'newman': '📮',
+    'api': '🌐',
+    'rest': '🌐',
+    'selenium': '🤖',
+    'cypress': '🌲',
+    'playwright': '🎭',
+    'react': '⚛️',
+    'jira': '📋',
+    'scrum': '🔄',
+    'agile': '🔄',
+    'excel': '📊',
+    'manual': '🔍',
+    'qa': '✅',
+    'test': '🧪',
+    'bug': '🐛',
+    'e-commerce': '🛒',
+    'javascript': '⚡',
+    'typescript': '💎',
+    'python': '🐍',
+    'java': '☕',
+    'github': '💻',
+    'supabase': '⚡',
+    'documentation': '📝',
+    'performance': '📈',
+    'mobile': '📱',
+    'android': '📱',
+    'node': '🟢'
   };
 
-  function getProjectIcon(techStack) {
+  function getProjectEmoji(techStack) {
     const ts = (techStack || '').toLowerCase();
-    for (const [key, url] of Object.entries(LOGO_MAP)) {
-      if (ts.includes(key)) return url;
+    for (const [key, emoji] of Object.entries(ICON_MAP)) {
+      if (ts.includes(key)) return emoji;
     }
-    // Generic Code icon or similar
-    return 'https://www.vectorlogo.zone/logos/github/github-tile.svg';
+    return '📁';
   }
 
   /** Build a single project card's HTML */
@@ -104,13 +121,13 @@
       resultsHTML = `<div class="proj-results">${items}</div>`;
     }
 
-    // Icon fallback if no image
-    const iconUrl = getProjectIcon(proj.tech_stack);
+    // Emoji icon fallback if no image
+    const emoji = getProjectEmoji(proj.tech_stack);
     
     // Image support (if proj.image_url exists in database)
     const imgHTML = (proj.image_url && proj.image_url.trim() !== '')
-      ? `<img src="${esc(proj.image_url)}" class="proj-img" alt="${esc(proj.title)}">` 
-      : `<div class="proj-icon-wrapper"><img src="${iconUrl}" alt="Tool Icon"></div>`;
+      ? `<img src="${esc(proj.image_url)}" class="proj-img" alt="${esc(proj.title)}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; this.remove();"><div class="proj-icon-wrapper" style="display:none;"><span style="font-size:1.5rem;">${emoji}</span></div>` 
+      : `<div class="proj-icon-wrapper"><span style="font-size:1.5rem;">${emoji}</span></div>`;
 
     return `
       <div class="${cls}" data-project-id="${esc(proj.id)}">
