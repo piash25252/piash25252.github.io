@@ -229,7 +229,11 @@ SQA roles.
 
 EDUCATION 
 
+<<<<<<< HEAD
 B.Sc. in Computer Science & Engineering  —  Dhaka International University 
+=======
+B.Sc. in Computer Science & Engineering  —  Dhaka International University
+>>>>>>> c69c65688d97c67d5a3463c7220616e8952dd4bf
 Thesis: Machine Learning-Based Assessment of Cybersecurity Awareness — A Behavioral Analysis Approach 
 
 Higher Secondary Certificate (HSC)  —  Govt. Sara Marwari Model School and CollegeGPA: 4.17 / 
