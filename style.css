@@ -514,7 +514,14 @@ body {
   justify-content: center;
   border: 1px solid var(--border);
 }
-.proj-icon-wrapper img { width: 28px; height: 28px; object-fit: contain; }
+.proj-icon-wrapper img { width: 30px; height: 30px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05)); }
+
+.proj-links-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
 
 .proj-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
 .proj-badge { font-size: 0.72rem; font-weight: 700; padding: 0.25rem 0.75rem; background: var(--blue); color: white; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.05em; }

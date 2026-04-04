@@ -50,9 +50,11 @@
     'react': 'https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg',
     'jira': 'https://www.vectorlogo.zone/logos/atlassian_jira/atlassian_jira-icon.svg',
     'cypress': 'https://www.vectorlogo.zone/logos/cypressio/cypressio-icon.svg',
-    'excel': 'https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg',
-    'qa': 'https://cdn-icons-png.flaticon.com/512/2072/2072130.png',
-    'manual': 'https://cdn-icons-png.flaticon.com/512/7510/7510009.png'
+    'excel': 'https://www.vectorlogo.zone/logos/microsoft_excel/microsoft_excel-icon.svg',
+    'qa': 'https://www.vectorlogo.zone/logos/github/github-tile.svg',
+    'manual': 'https://www.vectorlogo.zone/logos/google_sheets/google_sheets-icon.svg',
+    'test': 'https://www.vectorlogo.zone/logos/github/github-tile.svg',
+    'documentation': 'https://www.vectorlogo.zone/logos/google_docs/google_docs-icon.svg'
   };
 
   function getProjectIcon(techStack) {
@@ -60,8 +62,8 @@
     for (const [key, url] of Object.entries(LOGO_MAP)) {
       if (ts.includes(key)) return url;
     }
-    // Generic Code / Box icon
-    return 'https://cdn-icons-png.flaticon.com/512/1005/1005141.png';
+    // Generic Code icon or similar
+    return 'https://www.vectorlogo.zone/logos/github/github-tile.svg';
   }
 
   /** Build a single project card's HTML */
@@ -106,7 +108,7 @@
     const iconUrl = getProjectIcon(proj.tech_stack);
     
     // Image support (if proj.image_url exists in database)
-    const imgHTML = proj.image_url 
+    const imgHTML = (proj.image_url && proj.image_url.trim() !== '')
       ? `<img src="${esc(proj.image_url)}" class="proj-img" alt="${esc(proj.title)}">` 
       : `<div class="proj-icon-wrapper"><img src="${iconUrl}" alt="Tool Icon"></div>`;
 
@@ -114,7 +116,7 @@
       <div class="${cls}" data-project-id="${esc(proj.id)}">
         <div class="proj-top">
            ${imgHTML}
-           <div>${topContent}</div>
+           <div class="proj-links-wrap">${topContent}</div>
         </div>
         <h3>${esc(proj.title)}</h3>
         <p>${esc(proj.description)}</p>
