@@ -65,7 +65,6 @@
     'javascript': '⚡',
     'typescript': '💎',
     'python': '🐍',
-    'java': '☕',
     'github': '💻',
     'supabase': '⚡',
     'documentation': '📝',
