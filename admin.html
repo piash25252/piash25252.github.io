@@ -1227,35 +1227,24 @@
       try {
         document.getElementById('saveLabel').textContent = 'Saving...';
 
+        // Attempt 1: Full payload
         let payload = { title, description, github_url, live_url, tech_stack, image_url, featured, results };
+        let { data, error } = id 
+          ? await sb.from('projects').update(payload).eq('id', id)
+          : await sb.from('projects').insert([payload]);
 
-        let result;
-        if (id) {
-          // Update
-          result = await sb.from('projects').update(payload).eq('id', id);
-        } else {
-          // Create
-          result = await sb.from('projects').insert([payload]);
-        }
-        
-        // Handle gracefully if 'featured' or 'results' columns are missing in DB
-        if (result.error && result.error.message && result.error.message.toLowerCase().includes('could not find')) {
-          console.warn('Some columns missing, retrying with core fields...');
+        // Attempt 2: If failed due to missing columns (featured/results), try core fields only
+        if (error && (error.message.includes('column') || error.code === 'PGRST204')) {
+          console.warn('Retrying with core fields only...', error);
           payload = { title, description, github_url, live_url, tech_stack, image_url };
-          if (id) {
-            result = await sb.from('projects').update(payload).eq('id', id);
-          } else {
-            result = await sb.from('projects').insert([payload]);
-          }
-          if (!result.error) {
-             showToast(id ? 'Updated (missing columns ignored)' : 'Added (missing columns ignored)', 'success');
-             closeModal();
-             renderAll();
-             return;
-          }
+          const retry = id 
+            ? await sb.from('projects').update(payload).eq('id', id)
+            : await sb.from('projects').insert([payload]);
+          
+          error = retry.error;
         }
 
-        if (result.error) throw result.error;
+        if (error) throw error;
 
         showToast(id ? 'Project updated!' : 'Project added!', 'success');
         closeModal();
