@@ -1227,7 +1227,7 @@
       try {
         document.getElementById('saveLabel').textContent = 'Saving...';
 
-        const payload = { title, description, github_url, live_url, tech_stack, image_url, featured, results };
+        let payload = { title, description, github_url, live_url, tech_stack, image_url, featured, results };
 
         let result;
         if (id) {
@@ -1237,6 +1237,23 @@
           // Create
           result = await sb.from('projects').insert([payload]);
         }
+        
+        // Handle gracefully if 'featured' or 'results' columns are missing in DB
+        if (result.error && result.error.message && result.error.message.toLowerCase().includes('could not find')) {
+          console.warn('Some columns missing, retrying with core fields...');
+          payload = { title, description, github_url, live_url, tech_stack, image_url };
+          if (id) {
+            result = await sb.from('projects').update(payload).eq('id', id);
+          } else {
+            result = await sb.from('projects').insert([payload]);
+          }
+          if (!result.error) {
+             showToast(id ? 'Updated (missing columns ignored)' : 'Added (missing columns ignored)', 'success');
+             closeModal();
+             renderAll();
+             return;
+          }
+        }
 
         if (result.error) throw result.error;
 
@@ -1245,7 +1262,7 @@
         renderAll();
       } catch (err) {
         console.error('Save error:', err);
-        showToast('Error saving project. Check console.', 'error');
+        showToast(err.message || 'Error saving project.', 'error');
       } finally {
         document.getElementById('saveLabel').textContent = originalLabel;
       }
